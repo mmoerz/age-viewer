@@ -1,0 +1,23 @@
+{
+  "name": "Dev Apache Age Viewer",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "apache-age-viewer",
+  "workspaceFolder": "/src",
+  // "postCreateCommand": "rustup component add clippy rustfmt", 
+  // rustup target add x86_64-pc-windows-gnu (add new data formaters)
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"     
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "xabikos.javascriptsnippets"
+      ]
+    }
+  },
+  "postCreateCommand": "npm install pm2; npm run setup",
+  "remoteUser": "node"
+}

@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  # backend:
+  #   image: "mcr.microsoft.com/devcontainers/rust:latest"
+  #   volumes:
+  #     - ./mqttnitpicker:/workspace:cached
+  #   command: sleep infinity
+  #   depends_on:
+  #     - mqttbroker
+  #     - postgresql
+
+  postgresql-age:
+    image: "apache/age:latest"
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data:z
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: noPWD1224.
+    ports:
+       - "5432:5432"
+
+  apache-age-viewer:
+    #image: "docker.io/library/node:14-alpine3.16"
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20"
+    volumes:
+      - ../:/src:z
+    ports:
+      - "3000:3000"
+    command: sleep infinity

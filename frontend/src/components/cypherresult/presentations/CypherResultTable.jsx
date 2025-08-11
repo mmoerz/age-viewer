@@ -20,7 +20,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
-import { uuid } from 'cytoscape/src/util';
+// import { uuid } from 'cytoscape/src/util';
+// import { v4 as uuidv4 } from 'uuid';
+import { uuid } from 'react-uuid';
 import CypherResultTab from '../../cytoscape/CypherResultTab';
 
 const CypherResultTable = ({ data, ...props }) => {
