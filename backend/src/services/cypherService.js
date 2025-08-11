@@ -28,6 +28,7 @@ class CypherService {
         } else {
             try {
                 let resultSet = await this._graphRepository.execute(query);
+                console.info(`result rowcount: ${resultSet.rowCount}`);
                 return this.createResult(resultSet);
             } catch (err) {
                 throw err;

@@ -81,7 +81,7 @@ const Frame = ({
             id={styles.toEditor}
             title="copy to editor"
             icon={faClone}
-            size="s"
+            size="sm"
             onClick={() => dispatch(setCommand(reqString))}
             style={{
               cursor: 'pointer',

@@ -84,6 +84,7 @@ class GraphRepository {
         let client = await this.getConnection();
         let result = null;
         try {
+            console.info(`executing ${query}`)
             result = await client.query(query, params);
         } catch (err) {
             throw err;

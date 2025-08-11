@@ -28,11 +28,12 @@ class CypherController {
             let cypherService = new CypherService(
                 connectorService.graphRepository
             );
+            console.info(`cypher exec> ${req.body.cmd}`);
             let data = await cypherService.executeCypher(req.body.cmd);
             res.status(200).json(data).end();
         } else {
             throw new Error("Not connected");
-        }
+        } 
     }
 
     async createGraph(req, res, next) {

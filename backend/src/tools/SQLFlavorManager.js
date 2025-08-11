@@ -25,8 +25,9 @@ const sqlBasePath = path.join(__dirname, '../../sql');
 function getQuery(name, version='') {
     const sqlPath = path.join(sqlBasePath, version, `${name}.sql`);
     if (!fs.existsSync(sqlPath)) {
-        throw new Error(`SQL does not exist, name = ${name}`);
+        throw new Error(`SQL does not exist, for ${version}, name = ${name}`);
     }
+    console.info(`query: ${version}, ${name}`);
     return fs.readFileSync(sqlPath, 'utf8');
 }
 
