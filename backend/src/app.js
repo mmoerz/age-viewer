@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+// since we now run in a ms container anyway
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
@@ -60,6 +63,23 @@ app.use('/api/v1/*', sessionRouter);
 app.use('/api/v1/miscellaneous', miscellaneousRouter);
 app.use('/api/v1/cypher', cypherRouter);
 app.use('/api/v1/db', databaseRouter);
+
+// Middleware to inject DB vars into session
+app.use((req, res, next) => {
+    req.session.dbConfig = {
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DB,
+        host: process.env.POSTGRES_HOST,
+        port: process.env.POSTGRES_PORT
+    };
+    next();
+});
+
+// Endpoint for frontend to fetch env values
+app.get('/api/env', (req, res) => {
+    res.json(req.session.dbConfig);
+});
 
 // Error Handler
 app.use(function (err, req, res, next) {

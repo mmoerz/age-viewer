@@ -127,6 +127,10 @@ const getCaption = (valType, val) => {
   if (properties !== undefined) {
     if (Object.prototype.hasOwnProperty.call(properties, 'name')) {
       caption = 'name';
+    } else if (Object.prototype.hasOwnProperty.call(properties, 'Kurzform')) {
+      caption = 'Kurzform';
+    } else if (Object.prototype.hasOwnProperty.call(properties, 'Name')) {
+      caption = 'Name';
     } else if (Object.prototype.hasOwnProperty.call(properties, 'id')) {
       caption = 'id';
     }
@@ -352,8 +356,11 @@ export const generateCytoscapeElement = (data, maxDataOfGraph, isNew) => {
         // if has property named [ name ], than set [ name ]
         if (Object.prototype.hasOwnProperty.call(val.properties, 'name')) {
           nodeLabelCaptions[labelName] = 'name';
+        } else if (Object.prototype.hasOwnProperty.call(properties, 'Kurzform')) {
+          caption = 'Kurzform';
+        } else if (Object.prototype.hasOwnProperty.call(properties, 'Name')) {
+          caption = 'Name';
         }
-      }
 
       if (!Object.prototype.hasOwnProperty.call(val.properties, nodeLegend.caption)) {
         nodeLegend[labelName].caption = getCaption('node', val);
