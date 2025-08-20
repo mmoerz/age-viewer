@@ -83,7 +83,7 @@ const NodeList = ({ nodes, setCommand }) => {
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
-        height: '80px',
+        height: '165px',
         overflowY: 'auto',
         marginTop: '12px',
       }}
@@ -145,7 +145,7 @@ const EdgeList = ({ edges, setCommand }) => {
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
-        height: '80px',
+        height: '165px',
         overflowY: 'auto',
         marginTop: '12px',
       }}
