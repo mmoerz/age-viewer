@@ -341,7 +341,7 @@ export const generateCytoscapeElement = (data, maxDataOfGraph, isNew) => {
           classes: isNew ? 'new node' : 'edge',
         },
       );
-      console.log(JSON.stringify(labelName), edgeLegend[labelName], edges);
+      // console.log(JSON.stringify(labelName), edgeLegend[labelName], edges);
     } else {
       if (!Object.prototype.hasOwnProperty.call(nodeLegend, labelName)) {
         nodeLegend[labelName] = {
@@ -356,12 +356,12 @@ export const generateCytoscapeElement = (data, maxDataOfGraph, isNew) => {
         // if has property named [ name ], than set [ name ]
         if (Object.prototype.hasOwnProperty.call(val.properties, 'name')) {
           nodeLabelCaptions[labelName] = 'name';
-        } else if (Object.prototype.hasOwnProperty.call(properties, 'Kurzform')) {
-          caption = 'Kurzform';
-        } else if (Object.prototype.hasOwnProperty.call(properties, 'Name')) {
-          caption = 'Name';
+        } else if (Object.prototype.hasOwnProperty.call(val.properties, 'Kurzform')) {
+          nodeLabelCaptions[labelName] = 'Kurzform';
+        } else if (Object.prototype.hasOwnProperty.call(val.properties, 'Name')) {
+          nodeLabelCaptions[labelName] = 'Name';
         }
-
+      }
       if (!Object.prototype.hasOwnProperty.call(val.properties, nodeLegend.caption)) {
         nodeLegend[labelName].caption = getCaption('node', val);
       }
@@ -403,7 +403,7 @@ export const generateCytoscapeElement = (data, maxDataOfGraph, isNew) => {
       });
     });
   }
-  console.log('edge sizes', edgeLabelSizes);
+  // console.log('edge sizes', edgeLabelSizes);
   return {
     legend: {
       nodeLegend: sortByKey(nodeLegend),

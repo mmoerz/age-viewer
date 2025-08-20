@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button, Col, Form, Input, InputNumber, Row,
@@ -29,16 +29,7 @@ import styles from './ServerConnectFrame.module.scss';
 import { connectToDatabase as connectToDatabaseApi, changeGraph } from '../../../features/database/DatabaseSlice';
 import { addAlert } from '../../../features/alert/AlertSlice';
 import { addFrame, trimFrame } from '../../../features/frame/FrameSlice';
-import { /* getMetaChartData, */ getMetaData } from '../../../features/database/MetadataSlice';
-
-const FormInitialValue = {
-  database: '',
-  graph: '',
-  host: '',
-  password: '',
-  port: null,
-  user: '',
-};
+import { getMetaData } from '../../../features/database/MetadataSlice';
 
 const ServerConnectFrame = ({
   refKey,
@@ -47,6 +38,27 @@ const ServerConnectFrame = ({
   currentGraph,
 }) => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const [loadingEnv, setLoadingEnv] = useState(true);
+
+  // Fetch DB config from backend
+  useEffect(() => {
+    fetch('/api/env')
+      .then((res) => res.json())
+      .then((data) => {
+        form.setFieldsValue({
+          host: data.host || '',
+          port: data.port ? Number(data.port) : 5432,
+          database: data.database || '',
+          user: data.user || '',
+          password: data.password || '', // <-- password from backend
+        });
+      })
+      .catch(() => {
+        dispatch(addAlert('ErrorFetchingEnv', 'Failed to load default DB config'));
+      })
+      .finally(() => setLoadingEnv(false));
+  }, [dispatch, form]);
 
   const connectToDatabase = (data) => dispatch(connectToDatabaseApi(data)).then((response) => {
     if (response.type === 'database/connectToDatabase/fulfilled') {
@@ -55,14 +67,12 @@ const ServerConnectFrame = ({
       dispatch(getMetaData({ currentGraph })).then((metadataResponse) => {
         if (metadataResponse.type === 'database/getMetaData/fulfilled') {
           const graphName = Object.keys(metadataResponse.payload)[0];
-          /* dispatch(getMetaChartData()); */
           dispatch(changeGraph({ graphName }));
         }
         if (metadataResponse.type === 'database/getMetaData/rejected') {
           dispatch(addAlert('ErrorMetaFail'));
         }
       });
-
       dispatch(addFrame(':server status', 'ServerStatus'));
     } else if (response.type === 'database/connectToDatabase/rejected') {
       dispatch(addAlert('ErrorServerConnectFail', response.error.message));
@@ -83,27 +93,27 @@ const ServerConnectFrame = ({
         <Col span={18}>
           <div className={styles.FrameWrapper}>
             <Form
-              initialValues={FormInitialValue}
+              form={form}
               layout="vertical"
               onFinish={connectToDatabase}
             >
               <Form.Item name="host" label="Connect URL" rules={[{ required: true }]}>
-                <Input placeholder="192.168.0.1" />
+                <Input placeholder="192.168.0.1" disabled={loadingEnv} />
               </Form.Item>
               <Form.Item name="port" label="Connect Port" rules={[{ required: true }]}>
-                <InputNumber placeholder="5432" className={styles.FullWidth} />
+                <InputNumber placeholder="5432" className={styles.FullWidth} disabled={loadingEnv} />
               </Form.Item>
               <Form.Item name="database" label="Database Name" rules={[{ required: true }]}>
-                <Input placeholder="postgres" />
+                <Input placeholder="postgres" disabled={loadingEnv} />
               </Form.Item>
               <Form.Item name="user" label="User Name" rules={[{ required: true }]}>
-                <Input placeholder="postgres" />
+                <Input placeholder="postgres" disabled={loadingEnv} />
               </Form.Item>
               <Form.Item name="password" label="Password" rules={[{ required: true }]}>
-                <Input.Password placeholder="postgres" />
+                <Input.Password placeholder="postgres" disabled={loadingEnv} />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" htmlType="submit">Connect</Button>
+                <Button type="primary" htmlType="submit" disabled={loadingEnv}>Connect</Button>
               </Form.Item>
             </Form>
           </div>

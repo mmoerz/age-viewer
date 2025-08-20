@@ -54,8 +54,8 @@ export const stylesheet = [
   {
     selector: 'node',
     style: {
-      width(ele) { return ele ? ele.data('size') : 55; },
-      height(ele) { return ele ? ele.data('size') : 55; },
+      width(ele) { return ele ? ele.data('size') : 60; },
+      height(ele) { return ele ? ele.data('size') : 60; },
       label(ele) {
         const captionProp = ele.data('caption');
         return getLabel(ele, captionProp);
@@ -69,7 +69,7 @@ export const stylesheet = [
       color(ele) { return ele ? ele.data('fontColor') : '#FFF'; },
       'font-size': '10px',
       'text-wrap': 'ellipsis',
-      'text-max-width': function (ele) { return ele ? ele.data('size') : 55; },
+      'text-max-width': function (ele) { return ele ? ele.data('size') : 60; },
     },
   },
   {

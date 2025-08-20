@@ -394,6 +394,7 @@ a[data-toggle="collapse"] {
 
     .sidebar-item-disconnect {
         display: flex;
+        flex-wrap: wrap;
         width: 75%;
         margin: 0 auto;
     }
