@@ -10,3 +10,7 @@ docker run --name apache-age --network age-network -p 5455:5432 -e POSTGRES_USER
 # cmd to start apache/age-viewer
 docker rm apache-age-viewer
 docker run --name apache-age-viewer --network age-network -p 3000:3000 -e POSTGRES_USER=ageuser -e POSTGRES_PASSWORD=1sitonachair. -e POSTGRES_HOST=apache-age -e POSTGRES_DB=postgresDB apache-age-viewer
+
+
+# cytoscape initialization
+frontend/src/components/cytoscape/CypherResultCytoscapeChart.jsx

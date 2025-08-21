@@ -26,6 +26,12 @@ services:
     "image": "mcr.microsoft.com/devcontainers/javascript-node:14"
     volumes:
       - ../:/src:z
+    environment:
+      POSTGRES_HOST: postgresql-age
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: noPWD1224.
     ports:
       - "3000:3000"
       - "3001:3001"

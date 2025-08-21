@@ -27,6 +27,8 @@ import klay from 'cytoscape-klay';
 import euler from 'cytoscape-euler';
 import avsdf from 'cytoscape-avsdf';
 import spread from 'cytoscape-spread';
+import svg from 'cytoscape-svg';
+import nodeHtmlLabel from 'cytoscape-node-html-label';
 import { useDispatch } from 'react-redux';
 import CytoscapeComponent from 'react-cytoscapejs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,6 +48,7 @@ import IconFilter from '../../icons/IconFilter';
 import IconSearchCancel from '../../icons/IconSearchCancel';
 import styles from '../frame/Frame.module.scss';
 
+// cytoscape initialization
 cytoscape.use(COSEBilkent);
 cytoscape.use(cola);
 cytoscape.use(dagre);
@@ -54,6 +57,8 @@ cytoscape.use(euler);
 cytoscape.use(avsdf);
 cytoscape.use(spread);
 cytoscape.use(cxtmenu);
+cytoscape.use(svg);
+cytoscape.use(nodeHtmlLabel);
 
 const CypherResultCytoscapeCharts = ({
   elements,
@@ -321,6 +326,35 @@ const CypherResultCytoscapeCharts = ({
     (newCytoscapeObject) => {
       if (cytoscapeObject) return;
       setCytoscapeObject(newCytoscapeObject);
+
+      // Enable node-html-label
+      newCytoscapeObject.nodeHtmlLabel([
+        {
+          query: 'node', // apply to all nodes
+          halign: 'center',
+          valign: 'center',
+          halignBox: 'center',
+          valignBox: 'center',
+          cssClass: 'node-label', // optional CSS class
+          tpl: (data) => {
+            const ele = newCytoscapeObject.getElementById(data.id);
+            const bg = ele.style('background-color') || '#000000';
+            const border = ele.style('border-color') || '#007070';
+            const textColor = ele.style('color') || ele.style('text-outline-color') || 'white';
+            return `
+              <div class="node-label"
+               style="
+                  background-color: ${bg};
+                  border: 2px solid ${border};
+                  border-radius: 10px;
+                  padding: 4px;
+                  color: ${textColor};">
+              ${data.properties?.[data.caption] || data.label || data.id}
+              </div>
+            `;
+          },
+        },
+      ]);
     },
     [cytoscapeObject],
   );
