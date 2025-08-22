@@ -351,6 +351,23 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
     dispatch(() => props.setLabels(elementType, label, { caption }));
   };
 
+  const handleExportSvg = () => {
+    if (!cytoscapeObject) {
+      console.warn('Cytoscape instance is not ready yet!');
+      return;
+    }
+    const svgContent = cytoscapeObject.svg({ full: true, scale: 1 });
+    const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'graph-export.svg';
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
   useImperativeHandle(ref, () => ({
     getCy() {
       return cytoscapeObject;
@@ -375,7 +392,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
           isReloading={isReloading}
           legendData={legendData}
         />
-        <CypherResultTab refKey={props.refKey} setIsTable={props.setIsTable} currentTab="graph" />
+        <CypherResultTab refKey={props.refKey} setIsTable={props.setIsTable} handleExportSvg={handleExportSvg} currentTab="graph" />
       </div>
       <CypherResultCytoscapeChart
         onElementsMouseover={getFooterData}

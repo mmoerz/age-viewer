@@ -21,7 +21,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTable } from '@fortawesome/free-solid-svg-icons';
+import { faTable, faDownload } from '@fortawesome/free-solid-svg-icons';
 import IconGraph from '../../icons/IconGraph';
 
 class CypherResultTab extends Component {
@@ -30,6 +30,7 @@ class CypherResultTab extends Component {
     this.state = {};
     this.refKey = props.refKey;
     this.currentTab = props.currentTab;
+    this.handleExportSvg = props.handleExportSvg;
     this.setIsTable = props.setIsTable;
   }
 
@@ -49,34 +50,55 @@ class CypherResultTab extends Component {
     };
     return (
       <div className="legend-button-area">
-        <button
-          className="btn"
-          type="button"
-          style={{ width: '50%', fontSize: '14px', color: this.currentTab === 'graph' ? '#142B80' : '#495057' }}
-          onClick={() => { activeTab(this.refKey, 'graph'); this.setIsTable(false); }}
-        >
-          <IconGraph />
-          <br />
-          <b style={{ fontSize: '14px;' }}>Graph</b>
-        </button>
-        <div
-          style={{
-            backgroundColor: '#C4C4C4',
-            width: '1px',
-            height: '76px',
-            marginTop: '20px',
-          }}
-        />
-        <button
-          className="btn"
-          type="button"
-          style={{ width: '50%', fontSize: '14px', color: this.currentTab === 'table' ? '#142B80' : '#495057' }}
-          onClick={() => { activeTab(this.refKey, 'table'); this.setIsTable(true); }}
-        >
-          <FontAwesomeIcon icon={faTable} style={{ fontSize: '25px' }} />
-          <br />
-          <b style={{ fontSize: '14px;' }}>Table</b>
-        </button>
+        {/* First row: Graph + Table */}
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+          <button
+            className="btn"
+            type="button"
+            style={{ width: '50%', fontSize: '14px', color: this.currentTab === 'graph' ? '#142B80' : '#495057' }}
+            onClick={() => { activeTab(this.refKey, 'graph'); this.setIsTable(false); }}
+          >
+            <IconGraph />
+            <br />
+            <b style={{ fontSize: '14px;' }}>Graph</b>
+          </button>
+          <div
+            style={{
+              backgroundColor: '#C4C4C4',
+              width: '1px',
+              height: '76px',
+              marginTop: '20px',
+            }}
+          />
+          <button
+            className="btn"
+            type="button"
+            style={{ width: '50%', fontSize: '14px', color: this.currentTab === 'table' ? '#142B80' : '#495057' }}
+            onClick={() => { activeTab(this.refKey, 'table'); this.setIsTable(true); }}
+          >
+            <FontAwesomeIcon icon={faTable} style={{ fontSize: '25px' }} />
+            <br />
+            <b style={{ fontSize: '14px;' }}>Table</b>
+          </button>
+        </div>
+
+        {/* Second row: Download button under Graph */}
+        <div style={{ marginTop: '10px' }}>
+          <button
+            className="btn"
+            type="button"
+            style={{ width: '100px', fontSize: '14px', color: '#495057' }}
+            onClick={() => {
+              if (typeof this.handleExportSvg !== 'undefined') {
+                this.handleExportSvg();
+              }
+            }}
+          >
+            <FontAwesomeIcon icon={faDownload} style={{ fontSize: '20px' }} />
+            <br />
+            <b style={{ fontSize: '14px' }}>Export</b>
+          </button>
+        </div>
       </div>
     );
   }
@@ -85,6 +107,7 @@ class CypherResultTab extends Component {
 CypherResultTab.propTypes = {
   refKey: PropTypes.string.isRequired,
   currentTab: PropTypes.string.isRequired,
+  handleExportSvg: PropTypes.func.isRequired,
   setIsTable: PropTypes.func.isRequired,
 };
 

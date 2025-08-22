@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+// import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import cytoscape from 'cytoscape';
@@ -62,8 +63,6 @@ cytoscape.use(nodeHtmlLabel);
 
 const CypherResultCytoscapeCharts = ({
   elements,
-  cytoscapeObject,
-  setCytoscapeObject,
   cytoscapeLayout,
   maxDataOfGraph,
   onElementsMouseover,
@@ -75,10 +74,14 @@ const CypherResultCytoscapeCharts = ({
   addGraphHistory,
   addElementHistory,
 }) => {
+  const cytoRef = useRef(null); // <-- ref to store Cytoscape instance
   const [cytoscapeMenu, setCytoscapeMenu] = useState(null);
   const [initialized, setInitialized] = useState(false);
   const dispatch = useDispatch();
   const addEventOnElements = (targetElements) => {
+    const cytoscapeObject = cytoRef.current;
+    if (!cytoscapeObject) return;
+
     targetElements.bind('mouseover', (e) => {
       onElementsMouseover({ type: 'elements', data: e.target.data() });
       e.target.addClass('highlight');
@@ -137,6 +140,9 @@ const CypherResultCytoscapeCharts = ({
   };
 
   const addElements = (centerId, d) => {
+    const cytoscapeObject = cytoRef.current;
+    if (!cytoscapeObject) return;
+
     const generatedData = generateCytoscapeElement(
       d.rows,
       maxDataOfGraph,
@@ -179,6 +185,7 @@ const CypherResultCytoscapeCharts = ({
   };
 
   useEffect(() => {
+    const cytoscapeObject = cytoRef.current;
     if (cytoscapeMenu === null && cytoscapeObject !== null) {
       const cxtMenuConf = {
         menuRadius(ele) {
@@ -303,9 +310,10 @@ const CypherResultCytoscapeCharts = ({
       };
       setCytoscapeMenu(cytoscapeObject.cxtmenu(cxtMenuConf));
     }
-  }, [cytoscapeObject, cytoscapeMenu]);
+  }, [cytoscapeMenu]);
 
   useEffect(() => {
+    const cytoscapeObject = cytoRef.current;
     if (cytoscapeLayout && cytoscapeObject) {
       const selectedLayout = seletableLayouts[cytoscapeLayout];
       selectedLayout.animate = true;
@@ -320,12 +328,12 @@ const CypherResultCytoscapeCharts = ({
         setInitialized(true);
       }
     }
-  }, [cytoscapeObject, cytoscapeLayout]);
+  }, [cytoscapeLayout]);
 
   const cyCallback = useCallback(
     (newCytoscapeObject) => {
-      if (cytoscapeObject) return;
-      setCytoscapeObject(newCytoscapeObject);
+      if (cytoRef.current) return;
+      cytoRef.current = newCytoscapeObject;
 
       // Enable node-html-label
       newCytoscapeObject.nodeHtmlLabel([
@@ -335,19 +343,25 @@ const CypherResultCytoscapeCharts = ({
           valign: 'center',
           halignBox: 'center',
           valignBox: 'center',
-          cssClass: 'node-label', // optional CSS class
+          // cssClass: 'node-label', // optional CSS class
           tpl: (data) => {
             const ele = newCytoscapeObject.getElementById(data.id);
             const bg = ele.style('background-color') || '#000000';
-            const border = ele.style('border-color') || '#007070';
-            const textColor = ele.style('color') || ele.style('text-outline-color') || 'white';
+            const border = ele.style('border-color') || bg;
+            let textColor = ele.style('color');
+            if (!textColor || textColor === 'rgba(0,0,0,0)') {
+              textColor = ele.style('text-outline-color') || 'white';
+            }
             return `
               <div class="node-label"
                style="
+                  display: inline-block;
+                  text-align: center;
                   background-color: ${bg};
                   border: 2px solid ${border};
-                  border-radius: 10px;
-                  padding: 4px;
+                  border-radius: 6px;
+                  margin: 0;
+                  padding: 2px 6px;
                   color: ${textColor};">
               ${data.properties?.[data.caption] || data.label || data.id}
               </div>
@@ -356,7 +370,7 @@ const CypherResultCytoscapeCharts = ({
         },
       ]);
     },
-    [cytoscapeObject],
+    [cytoRef.current],
   );
 
   return (
@@ -365,14 +379,14 @@ const CypherResultCytoscapeCharts = ({
       stylesheet={stylesheet}
       cy={cyCallback}
       className={styles.NormalChart}
-      wheelSensitivity={0.3}
+      // wheelSensitivity={0.3}
     />
   );
 };
 
-CypherResultCytoscapeCharts.defaultProps = {
-  cytoscapeObject: null,
-};
+// CypherResultCytoscapeCharts.defaultProps = {
+//   cytoscapeObject: null,
+// };
 
 CypherResultCytoscapeCharts.propTypes = {
   elements: PropTypes.shape({
@@ -390,8 +404,8 @@ CypherResultCytoscapeCharts.propTypes = {
     ),
   }).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  cytoscapeObject: PropTypes.any,
-  setCytoscapeObject: PropTypes.func.isRequired,
+  // cytoscapeObject: PropTypes.any,
+  // setCytoscapeObject: PropTypes.func.isRequired,
   cytoscapeLayout: PropTypes.string.isRequired,
   maxDataOfGraph: PropTypes.number.isRequired,
   onElementsMouseover: PropTypes.func.isRequired,
