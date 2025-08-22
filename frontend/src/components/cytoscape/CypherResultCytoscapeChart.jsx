@@ -41,7 +41,7 @@ import {
   faThumbtack,
 } from '@fortawesome/free-solid-svg-icons';
 import uuid from 'react-uuid';
-import cxtmenu from '../../lib/cytoscape-cxtmenu';
+import cxtmenu from 'cytoscape-cxtmenu';
 import { initLocation, seletableLayouts } from './CytoscapeLayouts';
 import { stylesheet } from './CytoscapeStyleSheet';
 import { generateCytoscapeElement } from '../../features/cypher/CypherUtil';
@@ -61,7 +61,7 @@ cytoscape.use(cxtmenu);
 cytoscape.use(svg);
 cytoscape.use(nodeHtmlLabel);
 
-const CypherResultCytoscapeCharts = ({
+function CypherResultCytoscapeCharts({
   elements,
   cytoRef,
   cytoscapeLayout,
@@ -74,7 +74,7 @@ const CypherResultCytoscapeCharts = ({
   openModal,
   addGraphHistory,
   addElementHistory,
-}) => {
+}) {
   const [cytoscapeMenu, setCytoscapeMenu] = useState(null);
   const [initialized, setInitialized] = useState(false);
   const dispatch = useDispatch();
@@ -383,11 +383,7 @@ const CypherResultCytoscapeCharts = ({
       // wheelSensitivity={0.3}
     />
   );
-};
-
-// CypherResultCytoscapeCharts.defaultProps = {
-//   cytoscapeObject: null,
-// };
+}
 
 CypherResultCytoscapeCharts.propTypes = {
   elements: PropTypes.shape({

@@ -76,7 +76,8 @@ class CypherResultCytoscapeLegend extends Component {
         }
       }
 
-      newNodeBadges.set(label,
+      newNodeBadges.set(
+        label,
         <Badge
           className="nodeLabel px-3 py-2 mx-1 my-2"
           pill
@@ -94,7 +95,8 @@ class CypherResultCytoscapeLegend extends Component {
           style={{ backgroundColor: legend.color, color: legend.fontColor }}
         >
           {label}
-        </Badge>);
+        </Badge>,
+      );
     }
 
     for (let i = 0; i < Object.entries(nextProps.legendData.edgeLegend).length; i += 1) {
@@ -125,7 +127,8 @@ class CypherResultCytoscapeLegend extends Component {
           });
         }
       }
-      newEdgeBadges.set(label,
+      newEdgeBadges.set(
+        label,
         <Badge
           className="edgeLabel px-3 py-2 mx-1 my-2"
           key={uuid()}
@@ -142,7 +145,8 @@ class CypherResultCytoscapeLegend extends Component {
           style={{ backgroundColor: legend.color, color: legend.fontColor }}
         >
           {label}
-        </Badge>);
+        </Badge>,
+      );
     }
 
     return {

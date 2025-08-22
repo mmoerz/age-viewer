@@ -25,10 +25,10 @@ import {
 } from 'antd';
 import style from './popover.module.scss';
 
-const EdgeThicknessSettingModal = ({
+function EdgeThicknessSettingModal({
   onSubmit,
   properties,
-}) => {
+}) {
   const [standardEdge, setStdEdge] = useState('');
   const [standardProperty, setStdProperty] = useState('');
   const [MinValue, setMinValue] = useState('');
@@ -41,11 +41,9 @@ const EdgeThicknessSettingModal = ({
   const selectionEdge = () => {
     const edgeList = new Set(properties.map((p) => p.edge));
     return Array.from(edgeList).map((edge) => (
-      <>
-        <option className={style.option} value={edge}>
-          {edge}
-        </option>
-      </>
+      <option className={style.option} value={edge}>
+        {edge}
+      </option>
     ));
   };
 
@@ -56,13 +54,11 @@ const EdgeThicknessSettingModal = ({
     return Array.from(propertyList).map((property) => (
       property
         ? (
-          <>
-            <option className={style.option} value={property}>
-              {property}
-            </option>
-          </>
+          <option className={style.option} value={property}>
+            {property}
+          </option>
         )
-        : <></>
+        : null
     ));
   };
 
@@ -129,6 +125,6 @@ const EdgeThicknessSettingModal = ({
       </div>
     </div>
   );
-};
+}
 
 export default EdgeThicknessSettingModal;

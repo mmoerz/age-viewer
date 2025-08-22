@@ -30,7 +30,7 @@ import {
   updateNodeLabelSize,
 } from '../../features/cypher/CypherUtil';
 
-const CypherResultCytoscapeFooter = ({
+function CypherResultCytoscapeFooter({
   footerData,
   edgeLabelColors,
   nodeLabelColors,
@@ -43,7 +43,7 @@ const CypherResultCytoscapeFooter = ({
   captions,
   setCytoscapeLayout,
   cytoscapeLayout,
-}) => {
+}) {
   const [footerExpanded, setFooterExpanded] = useState(false);
 
   const extractData = (d) => {
@@ -359,7 +359,7 @@ const CypherResultCytoscapeFooter = ({
       {displayFooterData()}
     </div>
   );
-};
+}
 
 CypherResultCytoscapeFooter.defaultProps = {
   selectedCaption: null,

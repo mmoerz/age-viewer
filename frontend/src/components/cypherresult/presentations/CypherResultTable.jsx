@@ -25,7 +25,7 @@ import { v4 as uuid } from 'uuid';
 // import { uuid } from 'react-uuid';
 import CypherResultTab from '../../cytoscape/CypherResultTab';
 
-const CypherResultTable = ({ data, ...props }) => {
+function CypherResultTable({ data, ...props }) {
   const [localColumns, setLocalColumns] = useState([]);
   const [localRows, setLocalRows] = useState([]);
 
@@ -121,7 +121,7 @@ const CypherResultTable = ({ data, ...props }) => {
       <Table columns={localColumns} dataSource={localRows} />
     </div>
   );
-};
+}
 
 CypherResultTable.propTypes = {
   data: PropTypes.shape({

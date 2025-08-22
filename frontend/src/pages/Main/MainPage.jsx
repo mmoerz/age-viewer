@@ -20,6 +20,8 @@
 import React from 'react';
 import DefaultTemplate from '../../components/template/DefaultTemplate';
 
-const MainPage = () => <DefaultTemplate />;
+function MainPage() {
+  return <DefaultTemplate />;
+}
 
 export default MainPage;

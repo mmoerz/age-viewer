@@ -50,16 +50,16 @@ const DefaultTemplate = ({
     maxDataOfGraph,
     maxDataOfTable,
   });
-  const [finder, setFinder] = useState(null);
+  const [finder, setFinder] = useState(() => new KeyWordFinder());
 
-  useEffect(async () => {
-    const req = {
-      method: 'GET',
+  useEffect(() => {
+    const fetchFinder = async () => {
+      const res = await fetch('/api/v1/miscellaneous');
+      const results = await res.json();
+      const kwFinder = KeyWordFinder.fromMatrix(results);
+      setFinder(kwFinder);
     };
-    const res = await fetch('/api/v1/miscellaneous', req);
-    const results = await res.json();
-    const kwFinder = KeyWordFinder.fromMatrix(results);
-    setFinder(kwFinder);
+    fetchFinder();
   }, []);
 
   useEffect(() => {

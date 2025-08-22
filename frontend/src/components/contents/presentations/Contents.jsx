@@ -23,9 +23,9 @@ import PropTypes from 'prop-types';
 import FramesContainer from '../containers/Frames';
 import styles from './Contents.module.scss';
 
-const Contents = ({
+function Contents({
   database, isActive, getConnectionStatus, getMetaData, currentGraph,
-}) => {
+}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Contents = ({
       </div>
     </div>
   );
-};
+}
 
 Contents.propTypes = {
   database: PropTypes.shape({

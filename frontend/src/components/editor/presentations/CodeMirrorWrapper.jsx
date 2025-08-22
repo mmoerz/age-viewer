@@ -25,9 +25,9 @@ import 'codemirror/theme/ambiance-mobile.css';
 import './CodeMirror.scss';
 import PropTypes from 'prop-types';
 
-const CodeMirrorWrapper = ({
+function CodeMirrorWrapper({
   value, onChange, commandHistory, onClick,
-}) => {
+}) {
   const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
   const codeMirrorRef = useRef();
 
@@ -120,7 +120,7 @@ const CodeMirrorWrapper = ({
       }}
     />
   );
-};
+}
 
 CodeMirrorWrapper.propTypes = {
   onChange: PropTypes.func.isRequired,

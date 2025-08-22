@@ -28,9 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const generateElements = () => {
     try {
-      return generateCytoscapeElement(
-        state.cypher.queryResult[refKey].rows, state.setting.maxDataOfGraph, false,
-      );
+      return generateCytoscapeElement(state.cypher.queryResult[refKey].rows, state.setting.maxDataOfGraph, false, );
     } catch (e) {
       // TODO need tracing error
       console.error(e);

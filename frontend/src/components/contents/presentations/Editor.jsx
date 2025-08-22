@@ -22,7 +22,12 @@ import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faToggleOff, faToggleOn } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimesCircle,
+  faToggleOff,
+  faToggleOn,
+//  faPlay,
+} from '@fortawesome/free-solid-svg-icons';
 import store from '../../../app/store';
 import AlertContainers from '../../alert/containers/AlertContainers';
 import CodeMirror from '../../editor/containers/CodeMirrorWapperContainer';
@@ -31,7 +36,7 @@ import { setting } from '../../../conf/config';
 import IconPlay from '../../../icons/IconPlay';
 import { getMetaData } from '../../../features/database/MetadataSlice';
 
-const Editor = ({
+function Editor({
   setCommand,
   activeRequests,
   command,
@@ -48,7 +53,7 @@ const Editor = ({
   setLabel,
   isLabel,
   // addCommandFavorites,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
   const [activePromises, setPromises] = useState({});
@@ -173,6 +178,7 @@ const Editor = ({
                 title="Run Query"
                 aria-label="Run Query"
               >
+                {/* <FontAwesomeIcon icon={faPlay} style={{ fontSize: '30px' }} /> */}
                 <IconPlay />
               </button>
               <button
@@ -214,7 +220,7 @@ const Editor = ({
       {alerts}
     </div>
   );
-};
+}
 
 Editor.propTypes = {
   setCommand: PropTypes.func.isRequired,

@@ -32,14 +32,14 @@ const generateNewFilterObject = () => ({
   property: null,
 });
 
-const GraphFilterModal = ({
+function GraphFilterModal({
   visible,
   setVisible,
   onSubmit,
   properties,
   globalFilter,
   isTable,
-}) => {
+}) {
   const [propertyElements, setPropertyElements] = useState([]);
   const [filterList, setFilterList] = useState([
     generateNewFilterObject(),
@@ -161,7 +161,7 @@ const GraphFilterModal = ({
       }
     </Modal>
   );
-};
+}
 
 GraphFilterModal.propTypes = {
   visible: PropTypes.bool.isRequired,

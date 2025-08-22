@@ -24,10 +24,12 @@ import './static/style.css';
 import './static/navbar-fixed-left.css';
 import MainPage from './pages/Main/MainPage';
 
-const App = () => (
-  <React.StrictMode>
-    <MainPage />
-  </React.StrictMode>
-);
+function App() {
+  return (
+    <React.StrictMode>
+      <MainPage />
+    </React.StrictMode>
+  );
+}
 
 export default App;

@@ -29,13 +29,13 @@ import CypherResult from '../../frame/containers/CypherResultContainers';
 import CSV from '../../csv';
 import { setting } from '../../../conf/config';
 
-const Frames = ({
+function Frames({
   database,
   frameList,
   addFrame,
   queryResult,
   maxNumOfFrames,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [frames, setFrames] = useState(null);
 
@@ -143,7 +143,7 @@ const Frames = ({
       {frames}
     </div>
   );
-};
+}
 
 Frames.defaultProps = {
   queryResult: {},

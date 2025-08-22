@@ -29,12 +29,12 @@ import GraphFilterModal from '../../cypherresult/components/GraphFilterModal';
 import EdgeThicknessMenu from '../../cypherresult/components/EdgeThicknessMenu';
 import Frame from '../Frame';
 
-const CypherResultFrame = ({
+function CypherResultFrame({
   queryComplete,
   refKey,
   isPinned,
   reqString,
-}) => {
+}) {
   const chartAreaRef = createRef();
   const [cytoscapeContainerKey, setCytoscapeContainerKey] = useState(uuid());
 
@@ -255,7 +255,7 @@ const CypherResultFrame = ({
     </>
 
   );
-};
+}
 
 CypherResultFrame.propTypes = {
   queryComplete: PropTypes.shape(

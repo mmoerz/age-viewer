@@ -25,12 +25,12 @@ import FrameStyles from '../Frame.module.scss';
 import { removeFrame } from '../../../features/frame/FrameSlice';
 import { addAlert } from '../../../features/alert/AlertSlice';
 
-const ContentFrame = ({
+function ContentFrame({
   refKey,
   isPinned,
   reqString,
   playTarget,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [slides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -95,7 +95,7 @@ const ContentFrame = ({
       </div>
     </Frame>
   );
-};
+}
 
 ContentFrame.propTypes = {
   refKey: PropTypes.string.isRequired,

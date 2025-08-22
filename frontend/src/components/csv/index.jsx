@@ -24,9 +24,9 @@ import { useDispatch } from 'react-redux';
 import Frame from '../frame/Frame';
 import { getMetaData } from '../../features/database/MetadataSlice';
 
-const CSV = ({
+function CSV({
   reqString, refKey,
-}) => {
+}) {
   const dispatch = useDispatch();
 
   const props = {
@@ -56,12 +56,11 @@ const CSV = ({
       </Upload>
     </Frame>
   );
-};
+}
 
 CSV.propTypes = {
   reqString: PropTypes.string.isRequired,
   refKey: PropTypes.string.isRequired,
-
 };
 
 export default CSV;

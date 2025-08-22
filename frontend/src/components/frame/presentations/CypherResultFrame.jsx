@@ -22,20 +22,22 @@ import PropTypes from 'prop-types';
 import CypherResultTableContainer from '../../cypherresult/containers/CypherResultTableContainer';
 import Frame from '../Frame';
 
-const CypherResultFrame = ({
+function CypherResultFrame({
   refKey, isPinned, reqString,
-}) => (
-  <Frame
-    reqString={reqString}
-    isPinned={isPinned}
-    refKey={refKey}
-    bodyNoPadding
-  >
-    <div className="d-flex h-100">
-      <CypherResultTableContainer refKey={refKey} />
-    </div>
-  </Frame>
-);
+}) {
+  return (
+    <Frame
+      reqString={reqString}
+      isPinned={isPinned}
+      refKey={refKey}
+      bodyNoPadding
+    >
+      <div className="d-flex h-100">
+        <CypherResultTableContainer refKey={refKey} />
+      </div>
+    </Frame>
+  );
+}
 
 CypherResultFrame.propTypes = {
   refKey: PropTypes.string.isRequired,

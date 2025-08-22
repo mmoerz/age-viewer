@@ -41,21 +41,23 @@ cytoscape.use(euler);
 cytoscape.use(avsdf);
 cytoscape.use(spread);
 
-const MetadataCytoscapeChart = ({ elements }) => {
+function MetadataCytoscapeChart({ elements }) {
   const [cytoscapeObject, setCytoscapeObject] = useState(null);
 
-  const cyCallback = useCallback((newCytoscapeObject) => {
-    if (cytoscapeObject) return;
-    newCytoscapeObject.on('resize', () => {
-      try {
-        newCytoscapeObject.center();
-      } catch (e) {
-        // todo check why is it occurs error
-      }
-    });
-    setCytoscapeObject(newCytoscapeObject);
-  },
-  [cytoscapeObject]);
+  const cyCallback = useCallback(
+    (newCytoscapeObject) => {
+      if (cytoscapeObject) return;
+      newCytoscapeObject.on('resize', () => {
+        try {
+          newCytoscapeObject.center();
+        } catch (e) {
+          // todo check why is it occurs error
+        }
+      });
+      setCytoscapeObject(newCytoscapeObject);
+    },
+    [cytoscapeObject],
+  );
 
   useEffect(() => {
     if (cytoscapeObject && elements) {
@@ -84,7 +86,7 @@ const MetadataCytoscapeChart = ({ elements }) => {
       // wheelSensitivity={0.5}
     />
   );
-};
+}
 
 MetadataCytoscapeChart.propTypes = {
   elements: PropTypes.shape({

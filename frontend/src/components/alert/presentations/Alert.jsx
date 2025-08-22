@@ -24,13 +24,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
 import { Alert } from 'antd';
 
-const SingleAlert = ({
+function SingleAlert({
   alertKey,
   alertName,
   errorMessage,
   setCommand,
   removeAlert,
-}) => {
+}) {
   const dispatch = useDispatch();
 
   const setAlertConnect = (e, command) => {
@@ -244,8 +244,8 @@ const SingleAlert = ({
       <Alert type="success" message="Graph Created" description="Successfully created new graph" />
     );
   }
-  return (<></>);
-};
+  return (null);
+}
 SingleAlert.propTypes = {
   alertKey: PropTypes.string.isRequired,
   alertName: PropTypes.string.isRequired,
