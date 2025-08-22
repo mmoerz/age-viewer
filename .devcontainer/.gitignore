@@ -1,3 +1,4 @@
 data/postgresql
 data/postgresql/
 data/postgresql/*
+docker-compose.override.yml

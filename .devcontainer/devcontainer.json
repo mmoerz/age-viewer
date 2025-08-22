@@ -3,8 +3,6 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "apache-age-viewer",
   "workspaceFolder": "/src",
-  // "postCreateCommand": "rustup component add clippy rustfmt", 
-  // rustup target add x86_64-pc-windows-gnu (add new data formaters)
   "customizations": {
     "vscode": {
       "settings": {
@@ -18,6 +16,6 @@
       ]
     }
   },
-  "postCreateCommand": "npm install pm2; npm run setup",
-  "remoteUser": "node"
+  "postCreateCommand": "npm --version && node --version ",
+  "remoteUser": "root"
 }
