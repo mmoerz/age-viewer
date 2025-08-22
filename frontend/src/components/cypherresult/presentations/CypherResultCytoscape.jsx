@@ -18,7 +18,7 @@
  */
 
 import React, {
-  forwardRef, useEffect, useImperativeHandle, useState,
+  forwardRef, useEffect, useImperativeHandle, useState, useRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -31,6 +31,7 @@ import CypherResultCytoscapeFooter from '../../cytoscape/CypherResultCytoscapeFo
 import CypherResultTab from '../../cytoscape/CypherResultTab';
 
 const CypherResultCytoscape = forwardRef((props, ref) => {
+  const cytoRef = useRef(null); // <-- ref to store Cytoscape instance
   const [footerData, setFooterData] = useState({});
   const [legendData, setLegendData] = useState({ edgeLegend: {}, nodeLegend: {} });
   const [elements, setElements] = useState({ edges: [], nodes: [] });
@@ -39,8 +40,6 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const [selectedCaption, setSelectedCaption] = useState(null);
   const [captions, setCaptions] = useState([]);
-
-  const [cytoscapeObject, setCytoscapeObject] = useState(null);
   const [cytoscapeLayout, setCytoscapeLayout] = useState('coseBilkent');
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
   }, []);
 
   const getCaptionsFromCytoscapeObject = (elementType, label) => {
-    const elementsObject = cytoscapeObject.elements(`${elementType}[label = "${label}"]`).jsons();
+    const elementsObject = cytoRef.current.elements(`${elementType}[label = "${label}"]`).jsons();
     let extendedSet = new Set([]);
     elementsObject.forEach((ele) => {
       extendedSet = new Set([...extendedSet, ...Object.keys(ele.data.properties)]);
@@ -110,10 +109,10 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
     } : color;
 
     if (elementType === 'node') {
-      cytoscapeObject.nodes(`[label = "${label}"]`).data('backgroundColor', colorObject.color)
+      cytoRef.current.nodes(`[label = "${label}"]`).data('backgroundColor', colorObject.color)
         .data('borderColor', colorObject.borderColor).data('fontColor', colorObject.fontColor);
     } else if (elementType === 'edge') {
-      cytoscapeObject.edges(`[label = "${label}"]`).data('backgroundColor', colorObject.color)
+      cytoRef.current.edges(`[label = "${label}"]`).data('backgroundColor', colorObject.color)
         .data('fontColor', colorObject.fontColor).data('fontColor', '#2A2C34');
     }
   };
@@ -155,7 +154,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
   };
 
   const changeSizeOnCytoscapeElements = (elementType, label, size) => {
-    const changedData = cytoscapeObject.elements(`${elementType}[label = "${label}"]`).data('size', size);
+    const changedData = cytoRef.current.elements(`${elementType}[label = "${label}"]`).data('size', size);
 
     if (size > 6) {
       changedData.style('text-background-opacity', 0);
@@ -189,9 +188,9 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
 
   const changeCaptionOnCytoscapeElements = (elementType, label, caption) => {
     if (caption === null) {
-      cytoscapeObject.elements(`${elementType}[label = "${label}"]`).style('label', '');
+      cytoRef.current.elements(`${elementType}[label = "${label}"]`).style('label', '');
     } else {
-      cytoscapeObject.elements(`${elementType}[label = "${label}"]`).style('label', (ele) => {
+      cytoRef.current.elements(`${elementType}[label = "${label}"]`).style('label', (ele) => {
         let displayValue = '< NULL >';
         if (caption === 'gid') {
           const idValue = ele.data('id');
@@ -228,8 +227,8 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
         size = (rate >= 100) ? edgeSizes[4] : size;
         return size;
       };
-      if (cytoscapeObject) {
-        cytoscapeObject.elements().forEach((e) => {
+      if (cytoRef.current) {
+        cytoRef.current.elements().forEach((e) => {
           const ele = e;
           if (ele.group() === 'edges') {
             if (ele.data().label === thickness.edge && ele.data().properties[thickness.property]) {
@@ -243,8 +242,8 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
           }
         });
       }
-    } else if (cytoscapeObject) {
-      cytoscapeObject.elements().forEach((e) => {
+    } else if (cytoRef.current) {
+      cytoRef.current.elements().forEach((e) => {
         const ele = e;
         if (ele.group() === 'edges') {
           ele.style('width', '');
@@ -255,7 +254,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
 
   const applyFilterOnCytoscapeElements = (filters) => {
     const gFilteredClassName = 'g-filtered';
-    cytoscapeObject.elements(`.${gFilteredClassName}`).style('opacity', '1.0').removeClass(gFilteredClassName);
+    cytoRef.current.elements(`.${gFilteredClassName}`).style('opacity', '1.0').removeClass(gFilteredClassName);
 
     let notFilteredNodeLength = 0;
     const notFilteredNodes = [];
@@ -271,7 +270,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
       // if null filter size is 1 and filter length is 1 -> not filtering.
       return;
     }
-    cytoscapeObject.nodes().filter((ele) => {
+    cytoRef.current.nodes().filter((ele) => {
       let notIncluded = true;
       const currentLabel = ele.data('label');
       for (let i = 0; i < filterLength; i += 1) {
@@ -321,13 +320,13 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
     // Step3 . Edge Highlighting target And source filtered remove
     targetAndSourceNodeList.forEach((node) => { node.removeClass(gFilteredClassName); });
 
-    cytoscapeObject.elements(`.${gFilteredClassName}`).style('opacity', '0.1');
+    cytoRef.current.elements(`.${gFilteredClassName}`).style('opacity', '0.1');
   };
 
   const resetFilterOnCytoscapeElements = () => {
     const gFilteredClassName = 'g-filtered';
-    if (cytoscapeObject) {
-      cytoscapeObject.elements(`.${gFilteredClassName}`).style('opacity', '1.0').removeClass(gFilteredClassName);
+    if (cytoRef.current) {
+      cytoRef.current.elements(`.${gFilteredClassName}`).style('opacity', '1.0').removeClass(gFilteredClassName);
     }
   };
 
@@ -352,11 +351,11 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
   };
 
   const handleExportSvg = () => {
-    if (!cytoscapeObject) {
+    if (!cytoRef.current) {
       console.warn('Cytoscape instance is not ready yet!');
       return;
     }
-    const svgContent = cytoscapeObject.svg({ full: true, scale: 1 });
+    const svgContent = cytoRef.current.svg({ full: true, scale: 1 });
     const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 
@@ -370,7 +369,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     getCy() {
-      return cytoscapeObject;
+      return cytoRef.current;
     },
     getLabels() {
       return Object.keys(props.data.legend.nodeLegend);
@@ -398,8 +397,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
         onElementsMouseover={getFooterData}
         legendData={legendData}
         elements={elements}
-        setCytoscapeObject={setCytoscapeObject}
-        cytoscapeObject={cytoscapeObject}
+        cytoRef={cytoRef}
         cytoscapeLayout={cytoscapeLayout}
         addLegendData={addLegendData}
         maxDataOfGraph={maxDataOfGraph}

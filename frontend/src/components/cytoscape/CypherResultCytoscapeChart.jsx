@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useCallback, useEffect, useState, useRef } from 'react';
-// import React, { useCallback, useEffect, useState } from 'react';
+// import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import cytoscape from 'cytoscape';
@@ -63,6 +63,7 @@ cytoscape.use(nodeHtmlLabel);
 
 const CypherResultCytoscapeCharts = ({
   elements,
+  cytoRef,
   cytoscapeLayout,
   maxDataOfGraph,
   onElementsMouseover,
@@ -74,7 +75,6 @@ const CypherResultCytoscapeCharts = ({
   addGraphHistory,
   addElementHistory,
 }) => {
-  const cytoRef = useRef(null); // <-- ref to store Cytoscape instance
   const [cytoscapeMenu, setCytoscapeMenu] = useState(null);
   const [initialized, setInitialized] = useState(false);
   const dispatch = useDispatch();
@@ -332,8 +332,9 @@ const CypherResultCytoscapeCharts = ({
 
   const cyCallback = useCallback(
     (newCytoscapeObject) => {
-      if (cytoRef.current) return;
-      cytoRef.current = newCytoscapeObject;
+      const ref = cytoRef;
+      if (ref.current) return;
+      ref.current = newCytoscapeObject;
 
       // Enable node-html-label
       newCytoscapeObject.nodeHtmlLabel([
@@ -370,7 +371,7 @@ const CypherResultCytoscapeCharts = ({
         },
       ]);
     },
-    [cytoRef.current],
+    [cytoRef],
   );
 
   return (
@@ -403,9 +404,7 @@ CypherResultCytoscapeCharts.propTypes = {
       }),
     ),
   }).isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  // cytoscapeObject: PropTypes.any,
-  // setCytoscapeObject: PropTypes.func.isRequired,
+  cytoRef: PropTypes.shape({ current: PropTypes.instanceOf(cytoscape.Core) }).isRequired,
   cytoscapeLayout: PropTypes.string.isRequired,
   maxDataOfGraph: PropTypes.number.isRequired,
   onElementsMouseover: PropTypes.func.isRequired,
