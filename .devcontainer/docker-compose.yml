@@ -23,7 +23,7 @@ services:
 
   apache-age-viewer:
     #image: "docker.io/library/node:14-alpine3.16"
-    "image": "mcr.microsoft.com/devcontainers/javascript-node:14"
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:latest"
     volumes:
       - ../:/src:z
     environment:
