@@ -25,9 +25,6 @@ import { v4 as uuid } from 'uuid';
 // import { uuid } from 'react-uuid';
 import CypherResultTab from '../../cytoscape/CypherResultTab';
 
-const handleExportSvg = () => {
-};
-
 const CypherResultTable = ({ data, ...props }) => {
   const [localColumns, setLocalColumns] = useState([]);
   const [localRows, setLocalRows] = useState([]);
@@ -110,12 +107,16 @@ const CypherResultTable = ({ data, ...props }) => {
   const { refKey, setIsTable } = props;
   return (
     <div className="chart-frame-area">
-      <div className="contianer-frame-tab">
-        <div className="legend-area">
-          <div className="d-flex nodeLegend">Node:</div>
-          <div className="d-flex edgeLegend">Edge:</div>
+      <div className="container-frame-tab">
+        <div className="legend-area col-md-10 p-0">
+          <div className="d-flex nodeLegend">
+            <div className="mr-auto legends legend">Node:</div>
+          </div>
+          <div className="d-flex edgeLegend">
+            <div className="mr-auto legends legend">Edge:</div>
+          </div>
         </div>
-        <CypherResultTab refKey={refKey} setIsTable={setIsTable} handleExport={handleExportSvg} currentTab="table" />
+        <CypherResultTab refKey={refKey} setIsTable={setIsTable} cytoRef={undefined} currentTab="table" />
       </div>
       <Table columns={localColumns} dataSource={localRows} />
     </div>

@@ -350,23 +350,6 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
     dispatch(() => props.setLabels(elementType, label, { caption }));
   };
 
-  const handleExportSvg = () => {
-    if (!cytoRef.current) {
-      console.warn('Cytoscape instance is not ready yet!');
-      return;
-    }
-    const svgContent = cytoRef.current.svg({ full: true, scale: 1 });
-    const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'graph-export.svg';
-    link.click();
-
-    URL.revokeObjectURL(url);
-  };
-
   useImperativeHandle(ref, () => ({
     getCy() {
       return cytoRef.current;
@@ -385,13 +368,13 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
 
   return (
     <div className="chart-frame-area">
-      <div className="contianer-frame-tab">
+      <div className="container-frame-tab">
         <CypherResultCytoscapeLegend
           onLabelClick={getFooterData}
           isReloading={isReloading}
           legendData={legendData}
         />
-        <CypherResultTab refKey={props.refKey} setIsTable={props.setIsTable} handleExportSvg={handleExportSvg} currentTab="graph" />
+        <CypherResultTab refKey={props.refKey} setIsTable={props.setIsTable} cytoRef={cytoRef} currentTab="graph" />
       </div>
       <CypherResultCytoscapeChart
         onElementsMouseover={getFooterData}

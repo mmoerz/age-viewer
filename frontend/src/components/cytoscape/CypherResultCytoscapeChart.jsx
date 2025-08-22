@@ -328,7 +328,7 @@ const CypherResultCytoscapeCharts = ({
         setInitialized(true);
       }
     }
-  }, [cytoscapeLayout]);
+  }, [cytoscapeLayout, cytoRef.current]);
 
   const cyCallback = useCallback(
     (newCytoscapeObject) => {

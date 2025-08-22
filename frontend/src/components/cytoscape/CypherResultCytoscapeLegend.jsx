@@ -171,7 +171,7 @@ class CypherResultCytoscapeLegend extends Component {
     edgeBadges.forEach((value) => edgeLedgend.push(value));
 
     return (
-      <div className="legend-area">
+      <div className="legend-area col-md-10 p-0">
         <div className="d-flex nodeLegend">
           <div className={`mr-auto legends legend ${nodeLegendExpanded ? 'expandedLegend' : ''}`}>
             <span>Node: </span>
