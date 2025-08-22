@@ -1,15 +1,22 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+  <a href="https://react.dev/" target="_blank">
+  	<img src="https://img.shields.io/badge/React-333333?logo=react&logoColor=58c4dc" alt="React.js">
+  </a>
   <a href="https://github.com/apache/age/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/apache/age-viewer"/>
-  <a href="https://github.com/apache/age/stargazers">
-    <img src="https://img.shields.io/github/stars/apache/age-viewer"/>
 </p>
 
 # What is Apache-Age Viewer
 Apache-Age Viewer is a web based user interface that provides visualization of graph data stored in a postgreSQL database with AGE extension. 
-It is graph visualisation tool, for Apache AGE.
+It is graph a visualisation tool, for Apache AGE.
 
-This is a sub-project of [the Apache AGE project](https://age.apache.org/#).
+This a fork of a sub-project of [the Apache AGE project](https://age.apache.org/#) since the source-code of the sub-project is broken as well as the published container.
+
+I basically fixed some bugs (that were hard errors in the frontend). Additionally I enhanced:
+* backend provides environment variables for database access for the frontend
+* frontend uses those to prefill the connection settings
+* frontend utilizes more extensive labeling
+* maybe have some svg exporting feature
 
 # Recommend Node Version & install module
 
@@ -51,7 +58,7 @@ Install latest **pm2** with :
 
 	```
 
-  # How to start using Age-Viewer
+# How to start using Age-Viewer
  - To start using Age-Viewer we need to have a running postgreSQL database server with Apache Age Extension 
 	 ### Setting up the PostgreSQL server with AGE extension
 	-  Easiest way  for Windows, Mac-OS and Linux Environment using **Docker**
@@ -98,7 +105,12 @@ To Connect to postgreSQL server running from Docker Container
 - Password - postgresPW
 > The following field is same as used to make the docker container specified above as flags.
 
-
+# partially uncovered Techstack
+- [NPM](https://www.npmjs.com/) - The package manager for JavaScript.
+- [React](https://reactjs.org/) - A JavaScript UI library used with Astro.
+- [Cytoscape](https://js.cytoscape.org/) - A Javascript graph visualisation library.
+- [cytoscape-node-html-label](https://github.com/kaluginserg/cytoscape-node-html-label) - extensive labeling for cytoscape
+- [cytoscape-svg]()
 
 # License
 

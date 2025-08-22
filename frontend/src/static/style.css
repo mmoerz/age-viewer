@@ -302,22 +302,22 @@ a[data-toggle="collapse"] {
     margin: 0px 4px 4px 4px;
 }
 
-/* is set dynamically now */
+/* is set dynamically now 
 .node-label {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
+  */
 
-/*
 .node-label {
-  background: #2A2C34;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  text-align: center;
-} */
+    background: #2A2C34;
+    color: white;
+    padding: 0px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+} 
 
 .node-item:hover{
     background-color: #2756FF;
@@ -516,6 +516,7 @@ a.nav-link.active {
     display: flex;
     flex-direction: column;
 }
+
 .chart-area {
     height: 417px;
     width: 100%;
