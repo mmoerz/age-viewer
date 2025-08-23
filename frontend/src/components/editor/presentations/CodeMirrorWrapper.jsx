@@ -23,7 +23,12 @@ import {
   EditorView,
   keymap,
 } from '@codemirror/view';
-import { cypher } from '@neo4j-cypher/react-codemirror'; // Example, adjust as needed
+import { oneDark } from '@codemirror/theme-one-dark';
+// import '@codemirror/autocomplete';
+// import { LanguageSupport } from '@neo4j-cypher/react-codemirror'; // Example, adjust as needed
+// cypher support seams to be broken with neo4j-cypher 0.4.6, so using basic sql support for now
+
+import { sql } from '@codemirror/lang-sql';
 import './CodeMirror.scss';
 import PropTypes from 'prop-types';
 
@@ -33,15 +38,27 @@ function CodeMirrorWrapper({
   const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
   const codeMirrorRef = useRef();
 
+  // Attach click handler to the editor DOM node
+  React.useEffect(() => {
+    if (typeof onClick === 'function' && codeMirrorRef.current) {
+      const editorDOM = codeMirrorRef.current.editor?.contentDOM;
+      if (editorDOM) {
+        editorDOM.addEventListener('click', onClick);
+        return () => editorDOM.removeEventListener('click', onClick);
+      }
+    }
+    return undefined;
+  }, [onClick]);
+
   // Define custom keymaps
   const customKeymap = [
     {
       key: 'Shift-Enter',
-      run: () => { onClick(); onChange(''); setCommandHistoryIndex(-1); return true; },
+      run: () => { onChange(''); setCommandHistoryIndex(-1); return true; },
     },
     {
       key: 'Ctrl-Enter',
-      run: () => { onClick(); onChange(''); setCommandHistoryIndex(-1); return true; },
+      run: () => { onChange(''); setCommandHistoryIndex(-1); return true; },
     },
     {
       key: 'Ctrl-Up',
@@ -89,9 +106,9 @@ function CodeMirrorWrapper({
       ref={codeMirrorRef}
       value={value}
       height="auto"
-      theme="ambiance-mobile"
+      theme={oneDark}
       extensions={[
-        cypher(),
+        sql(),
         keymap.of(customKeymap),
         EditorView.lineWrapping,
       ]}
@@ -132,7 +149,11 @@ CodeMirrorWrapper.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   commandHistory: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+};
+
+CodeMirrorWrapper.defaultProps = {
+  onClick: undefined,
 };
 
 export default CodeMirrorWrapper;

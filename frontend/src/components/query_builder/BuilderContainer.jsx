@@ -4,7 +4,7 @@ import {
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import CodeMirror from '../editor/containers/CodeMirrorWrapperContainer';
+// import CodeMirrorWrapper from '../editor/containers/CodeMirrorWrapperContainer';
 import BuilderSelection from './BuilderSelection';
 import KeyWordFinder from '../../features/query_builder/KeyWordFinder';
 
@@ -68,7 +68,7 @@ function BuilderContainer({ open, setOpen, finder }) {
 
       <Space />
       <div className="code-mirror-builder">
-        <CodeMirror onChange={handleSetQuery} value={query} />
+        {/* <CodeMirrorWrapper onChange={handleSetQuery} value={query} /> */}
       </div>
 
       <Space />

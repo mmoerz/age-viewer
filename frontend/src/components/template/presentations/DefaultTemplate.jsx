@@ -20,17 +20,20 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Row, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import {
+  Row,
+  // Button
+} from 'react-bootstrap';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faBars } from '@fortawesome/free-solid-svg-icons';
 import EditorContainer from '../../contents/containers/Editor';
 import Sidebar from '../../sidebar/containers/Sidebar';
 import Contents from '../../contents/containers/Contents';
 import Modal from '../../modal/containers/Modal';
 import { loadFromCookie, saveToCookie } from '../../../features/cookie/CookieUtil';
-import BuilderContainer from '../../query_builder/BuilderContainer';
+// import BuilderContainer from '../../query_builder/BuilderContainer';
 import './DefaultTemplate.scss';
-import KeyWordFinder from '../../../features/query_builder/KeyWordFinder';
+// import KeyWordFinder from '../../../features/query_builder/KeyWordFinder';
 
 function DefaultTemplate({
   theme,
@@ -42,7 +45,7 @@ function DefaultTemplate({
   isOpen,
 }) {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [stateValues] = useState({
     theme,
     maxNumOfFrames,
@@ -50,8 +53,9 @@ function DefaultTemplate({
     maxDataOfGraph,
     maxDataOfTable,
   });
-  const [finder, setFinder] = useState(() => new KeyWordFinder());
+  // const [finder, setFinder] = useState(() => new KeyWordFinder());
 
+  /*
   useEffect(() => {
     const fetchFinder = async () => {
       const res = await fetch('/api/v1/miscellaneous');
@@ -61,6 +65,7 @@ function DefaultTemplate({
     };
     fetchFinder();
   }, []);
+  */
 
   useEffect(() => {
     let isChanged = false;
@@ -113,10 +118,10 @@ function DefaultTemplate({
       />
       <Row className="content-row">
         <div>
-          <Button onClick={() => setOpen(true)}>
+          {/* <Button onClick={() => setOpen(true)}>
             <FontAwesomeIcon icon={faBars} />
           </Button>
-          <BuilderContainer open={open} setOpen={setOpen} finder={finder} />
+          <BuilderContainer open={open} setOpen={setOpen} finder={finder} /> */}
         </div>
         <div className="editor-division wrapper-extension-padding">
 
