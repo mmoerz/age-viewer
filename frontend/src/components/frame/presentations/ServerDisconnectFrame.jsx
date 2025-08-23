@@ -25,7 +25,7 @@ import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
 import { Col, Row } from 'antd';
 import Frame from '../Frame';
 
-const ServerDisconnectFrame = ({
+function ServerDisconnectFrame({
   refKey,
   isPinned,
   reqString,
@@ -34,7 +34,7 @@ const ServerDisconnectFrame = ({
   addAlert,
   setCommand,
   resetMetaData,
-}) => {
+}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const ServerDisconnectFrame = ({
       </Row>
     </Frame>
   );
-};
+}
 
 ServerDisconnectFrame.propTypes = {
   refKey: PropTypes.string.isRequired,

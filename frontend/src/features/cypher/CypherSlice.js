@@ -22,7 +22,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 // eslint-disable-next-line no-unused-vars
 const validateSamePathVariableReturn = (cypherQuery) => {
-  const cypherPathValidator = new RegExp('^match\\s([a-zA-Z0-9].*)\\s*=\\s*\\(', 'i');
+  const cypherPathValidator = /^match\s([a-zA-Z0-9].*)\s*=\s*\(/i;
 
   if (cypherPathValidator.test(cypherQuery)) {
     const pathAlias = RegExp.$1;
@@ -35,10 +35,10 @@ const validateSamePathVariableReturn = (cypherQuery) => {
 
 // eslint-disable-next-line no-unused-vars
 const validateVlePathVariableReturn = (cypherQuery) => {
-  const cypherVleValidator = new RegExp('^match\\s.*[.*[0-9]*\\s*\\.\\.\\s*[0-9]*]', 'i');
+  const cypherVleValidator = /^match\s.*\[.*[0-9]*\s*\.\.\s*[0-9]*]/i;
 
   if (cypherVleValidator.test(cypherQuery)) {
-    const cypherPathValidator = new RegExp('^match\\s(.*[a-zA-Z0-9])\\s*=', 'i');
+    const cypherPathValidator = /^match\s(.*[a-zA-Z0-9])\s*=/i;
 
     if (!cypherPathValidator.test(cypherQuery)) {
       throw Object.assign(new Error("Path variable is required to be used with VLE query. Refer the below proper cypher query with VLE. \n 'MATCH pathvariable = (v)-[r*1..5]->(v2) return pathvariable;"), { code: 500 });
@@ -50,7 +50,8 @@ export const executeCypherQuery = createAsyncThunk(
   'cypher/executeCypherQuery',
   async (args, thunkAPI) => {
     try {
-      const response = await fetch('/api/v1/cypher',
+      const response = await fetch(
+        '/api/v1/cypher',
         {
           method: 'POST',
           headers: {
@@ -59,7 +60,8 @@ export const executeCypherQuery = createAsyncThunk(
           },
           body: JSON.stringify({ cmd: args[1] }),
           signal: thunkAPI.signal,
-        });
+        },
+      );
       if (response.ok) {
         const res = await response.json();
         return { key: args[0], query: args[1], ...res };

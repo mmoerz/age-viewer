@@ -30,7 +30,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import store from '../../../app/store';
 import AlertContainers from '../../alert/containers/AlertContainers';
-import CodeMirror from '../../editor/containers/CodeMirrorWapperContainer';
+import CodeMirror from '../../editor/containers/CodeMirrorWrapperContainer';
 import SideBarToggle from '../../editor/containers/SideBarMenuToggleContainer';
 import { setting } from '../../../conf/config';
 import IconPlay from '../../../icons/IconPlay';

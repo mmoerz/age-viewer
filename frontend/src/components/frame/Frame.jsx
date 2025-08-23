@@ -39,7 +39,7 @@ import EdgeWeight from '../../icons/EdgeWeight';
 import IconFilter from '../../icons/IconFilter';
 import IconSearchCancel from '../../icons/IconSearchCancel';
 
-const Frame = ({
+function Frame({
   reqString,
   children,
   refKey,
@@ -50,7 +50,7 @@ const Frame = ({
   thicnessMenu,
   bodyNoPadding,
   isTable,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [isFullScreen, setFullScreen] = useState(false);
   const [isExpand, setExpand] = useState(true);
@@ -223,7 +223,7 @@ const Frame = ({
       </div>
     </div>
   );
-};
+}
 
 Frame.defaultProps = {
   onSearch: null,
@@ -236,7 +236,7 @@ Frame.defaultProps = {
 
 Frame.propTypes = {
   reqString: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired, // allows multiple elements
   refKey: PropTypes.string.isRequired,
   onSearch: PropTypes.func,
   onThick: PropTypes.func,

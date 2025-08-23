@@ -28,53 +28,63 @@ const StyleTextRight = {
 };
 const StyleTextLeft = { fontSize: '13px', fontWeight: 'bold' };
 
-export const ColoredLine = () => (
-  <hr
-    style={{
-      color: '#B0B0B0',
-      backgroundColor: '#B0B0B0',
-      marginTop: 0,
-      height: 0.3,
-    }}
-  />
-);
+export function ColoredLine() {
+  return (
+    <hr
+      style={{
+        color: '#B0B0B0',
+        backgroundColor: '#B0B0B0',
+        marginTop: 0,
+        height: 0.3,
+      }}
+    />
+  );
+}
 
-export const VerticalLine = () => (
-  <div
-    style={{
-      backgroundColor: '#C4C4C4',
-      width: '1px',
-      height: '120px',
-      marginTop: '37px',
-      marginBottom: '37px',
-    }}
-  />
-);
+export function VerticalLine() {
+  return (
+    <div
+      style={{
+        backgroundColor: '#C4C4C4',
+        width: '1px',
+        height: '120px',
+        marginTop: '37px',
+        marginBottom: '37px',
+      }}
+    />
+  );
+}
 
-export const HorizontalLine = () => (
-  <div
-    className="horizontalLine"
-    style={{
-      border: '1px solid #C4C4C4',
-      opacity: '1',
-      width: '80%',
-      height: '0',
-      margin: '3px auto',
-    }}
-  />
-);
+export function HorizontalLine() {
+  return (
+    <div
+      className="horizontalLine"
+      style={{
+        border: '1px solid #C4C4C4',
+        opacity: '1',
+        width: '80%',
+        height: '0',
+        margin: '3px auto',
+      }}
+    />
+  );
+}
 
-const SubLabelRight = ({ label, classes }) => (
-  <div className={classes} style={StyleTextRight}>{label}</div>
-);
+function SubLabelRight({ label, classes }) {
+  return (
+    <div className={classes} style={StyleTextRight}>{label}</div>
+  );
+}
 SubLabelRight.propTypes = {
   classes: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
 
-const SubLabelLeft = ({ label, classes }) => (
-  <div className={classes} style={StyleTextLeft}>{label}</div>
-);
+function SubLabelLeft({ label, classes }) {
+  return (
+    <div className={classes} style={StyleTextLeft}>{label}</div>
+  );
+}
 SubLabelLeft.propTypes = {
   classes: PropTypes.string.isRequired,
   label: PropTypes.oneOfType([
@@ -83,17 +93,19 @@ SubLabelLeft.propTypes = {
   ]).isRequired,
 };
 
-const SubLabelLeftWithLink = ({ label, classes }) => (
-  <div className={classes} style={StyleTextLeft}><pre>{label}</pre></div>
-);
+function SubLabelLeftWithLink({ label, classes }) {
+  return (
+    <div className={classes} style={StyleTextLeft}><pre>{label}</pre></div>
+  );
+}
 SubLabelLeftWithLink.propTypes = {
   classes: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
 
-const GraphSelectDropdown = ({
+function GraphSelectDropdown({
   currentGraph, graphs, changeCurrentGraph, changeGraphDB,
-}) => {
+}) {
   const selectStyle = {
     marginTop: '1rem',
     display: 'block',
@@ -119,7 +131,7 @@ const GraphSelectDropdown = ({
       </b>
     </Col>
   );
-};
+}
 
 GraphSelectDropdown.propTypes = {
   currentGraph: PropTypes.string.isRequired,

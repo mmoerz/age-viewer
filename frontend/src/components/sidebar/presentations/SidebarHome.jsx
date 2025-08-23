@@ -68,7 +68,7 @@ const genPropQuery = (eleType, propertyName) => {
   return '';
 };
 
-const NodeList = ({ nodes, setCommand }) => {
+function NodeList({ nodes, setCommand }) {
   let list;
   if (nodes) {
     list = nodes.map((item) => (
@@ -94,7 +94,7 @@ const NodeList = ({ nodes, setCommand }) => {
   }
 
   return null;
-};
+}
 NodeList.propTypes = {
   nodes: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
@@ -130,7 +130,7 @@ NodeItems.propTypes = {
   setCommand: PropTypes.func.isRequired,
 };
 
-const EdgeList = ({ edges, setCommand }) => {
+function EdgeList({ edges, setCommand }) {
   let list;
   if (edges) {
     list = edges.map((item) => (
@@ -156,7 +156,7 @@ const EdgeList = ({ edges, setCommand }) => {
   }
 
   return null;
-};
+}
 EdgeList.propTypes = {
   edges: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
@@ -190,7 +190,7 @@ EdgeItems.propTypes = {
   setCommand: PropTypes.func.isRequired,
 };
 
-const PropertyList = ({ propertyKeys, setCommand }) => {
+function PropertyList({ propertyKeys, setCommand }) {
   let list;
   if (propertyKeys) {
     list = propertyKeys.map((item) => (
@@ -216,7 +216,7 @@ const PropertyList = ({ propertyKeys, setCommand }) => {
   }
 
   return null;
-};
+}
 PropertyList.propTypes = {
   propertyKeys: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
@@ -225,27 +225,29 @@ PropertyList.propTypes = {
   setCommand: PropTypes.func.isRequired,
 };
 
-const PropertyItems = ({ propertyName, keyType, setCommand }) => (
-  <button
-    type="button"
-    className={`${keyType === 'v' ? 'propertie-item' : 'propertie-item'} propertie-item`}
-    onClick={() => setCommand(genPropQuery(keyType, propertyName))}
-  >
-    {propertyName}
-  </button>
-);
+function PropertyItems({ propertyName, keyType, setCommand }) {
+  return (
+    <button
+      type="button"
+      className={`${keyType === 'v' ? 'propertie-item' : 'propertie-item'} propertie-item`}
+      onClick={() => setCommand(genPropQuery(keyType, propertyName))}
+    >
+      {propertyName}
+    </button>
+  );
+}
 PropertyItems.propTypes = {
   propertyName: PropTypes.string.isRequired,
   keyType: PropTypes.string.isRequired,
   setCommand: PropTypes.func.isRequired,
 };
 
-const GraphList = ({
+function GraphList({
   graphs,
   currentGraph,
   changeCurrentGraph,
   changeGraph,
-}) => {
+}) {
   let list;
   if (graphs) {
     list = graphs.map((item) => (
@@ -273,7 +275,7 @@ const GraphList = ({
   }
 
   return null;
-};
+}
 GraphList.propTypes = {
   graphs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
   currentGraph: PropTypes.string.isRequired,
@@ -281,21 +283,23 @@ GraphList.propTypes = {
   changeGraph: PropTypes.func.isRequired,
 };
 
-const GraphItems = ({
+function GraphItems({
   graph,
   gid,
   currentGraph,
   changeCurrentGraph,
   changeGraph,
-}) => (
-  <button
-    type="button"
-    className={`${graph === currentGraph ? 'graph-item-clicked' : 'graph-item'}`}
-    onClick={() => { changeCurrentGraph({ id: gid }); changeGraph({ graphName: graph }); }}
-  >
-    {graph}
-  </button>
-);
+}) {
+  return (
+    <button
+      type="button"
+      className={`${graph === currentGraph ? 'graph-item-clicked' : 'graph-item'}`}
+      onClick={() => { changeCurrentGraph({ id: gid }); changeGraph({ graphName: graph }); }}
+    >
+      {graph}
+    </button>
+  );
+}
 GraphItems.propTypes = {
   graph: PropTypes.string.isRequired,
   gid: PropTypes.string.isRequired,
@@ -304,53 +308,57 @@ GraphItems.propTypes = {
   changeGraph: PropTypes.func.isRequired,
 };
 
-const ConnectedText = ({ userName, roleName }) => (
-  <div>
-    <h6>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <SubLabelRight label="Username :" classes="col-sm-6" />
-        <SubLabelLeft label={userName} classes="col-sm-6" />
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <SubLabelRight label="Roles :" classes="col-sm-6" />
-        <SubLabelLeft label={roleName} classes="col-sm-6" />
-      </div>
-    </h6>
-  </div>
-);
+function ConnectedText({ userName, roleName }) {
+  return (
+    <div>
+      <h6>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <SubLabelRight label="Username :" classes="col-sm-6" />
+          <SubLabelLeft label={userName} classes="col-sm-6" />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <SubLabelRight label="Roles :" classes="col-sm-6" />
+          <SubLabelLeft label={roleName} classes="col-sm-6" />
+        </div>
+      </h6>
+    </div>
+  );
+}
 ConnectedText.propTypes = {
   userName: PropTypes.string.isRequired,
   roleName: PropTypes.string.isRequired,
 };
 
-const DBMSText = ({ dbname, graph }) => (
-  <div>
-    <h6>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <SubLabelRight label="Databases :" classes="col-sm-6" />
-        <SubLabelLeft label={dbname} classes="col-sm-6" />
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <SubLabelRight label="Graph Path :" classes="col-sm-6" />
-        <SubLabelLeft label={graph} classes="col-sm-6" />
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <SubLabelRight label="Information :" classes="col-sm-6" />
-        <SubLabelLeft label="-" classes="col-sm-6" />
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <SubLabelRight label="Query List :" classes="col-sm-6" />
-        <SubLabelLeft label="-" classes="col-sm-6" />
-      </div>
-    </h6>
-  </div>
-);
+function DBMSText({ dbname, graph }) {
+  return (
+    <div>
+      <h6>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <SubLabelRight label="Databases :" classes="col-sm-6" />
+          <SubLabelLeft label={dbname} classes="col-sm-6" />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <SubLabelRight label="Graph Path :" classes="col-sm-6" />
+          <SubLabelLeft label={graph} classes="col-sm-6" />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <SubLabelRight label="Information :" classes="col-sm-6" />
+          <SubLabelLeft label="-" classes="col-sm-6" />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <SubLabelRight label="Query List :" classes="col-sm-6" />
+          <SubLabelLeft label="-" classes="col-sm-6" />
+        </div>
+      </h6>
+    </div>
+  );
+}
 DBMSText.propTypes = {
   dbname: PropTypes.string.isRequired,
   graph: PropTypes.string.isRequired,
 };
 
-const SidebarHome = ({
+function SidebarHome({
   edges,
   nodes,
   currentGraph,
@@ -364,7 +372,7 @@ const SidebarHome = ({
   changeCurrentGraph,
   changeGraph,
   isLabel,
-}) => {
+}) {
   const dispatch = useDispatch();
   const { confirm } = Modal;
 
@@ -485,7 +493,7 @@ const SidebarHome = ({
       </div>
     </div>
   );
-};
+}
 
 SidebarHome.propTypes = {
   edges: PropTypes.arrayOf(PropTypes.shape({

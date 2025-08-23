@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 
-const ModalDialog = ({
+function ModalDialog({
   closeModal,
   graphHistory,
   elementHistory,
@@ -30,11 +30,12 @@ const ModalDialog = ({
   removeElementHistory,
   getMetaData,
   currentGraph,
-}) => {
+}) {
   const dispatch = useDispatch();
 
   const removeNode = () => {
-    fetch('/api/v1/cypher',
+    fetch(
+      '/api/v1/cypher',
       {
         method: 'POST',
         headers: {
@@ -42,7 +43,8 @@ const ModalDialog = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ cmd: `SELECT * FROM cypher('${graphHistory[0]}', $$ MATCH (S) WHERE id(S) = ${elementHistory[0]} DETACH DELETE S $$) as (S agtype);` }),
-      })
+      },
+    )
       .then((res) => {
         if (res.ok) {
           dispatch(removeGraphHistory());
@@ -79,7 +81,7 @@ const ModalDialog = ({
       </div>
     </div>
   );
-};
+}
 
 ModalDialog.propTypes = {
   closeModal: PropTypes.func.isRequired,

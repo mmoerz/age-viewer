@@ -1,9 +1,9 @@
 {
   "name": "ag-viewer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "^20.19.4"
+    "node": "^24.4.0"
   },
   "scripts": {
     "setup": "npm install && npm-run-all setup-front setup-backend",
@@ -18,8 +18,10 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.28.2",
+    "@neo4j-cypher/react-codemirror": "^2.0.0-next.26",
     "cytoscape": "3.33.0",
-    "npm-run-all": "^4.1.5",
+    "glob": "^11.0.3",
+    "npm-run-all2": "^8.0.4",
     "pm2": "^6.0.8"
   },
   "license": "Apache-2.0",
@@ -30,6 +32,7 @@
     }
   ],
   "devDependencies": {
-    "@craco/craco": "^7.1.0"
+    "@craco/craco": "^7.1.0",
+    "eslint": "^8.57.1"
   }
 }

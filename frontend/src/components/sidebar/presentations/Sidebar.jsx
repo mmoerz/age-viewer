@@ -22,18 +22,20 @@ import PropTypes from 'prop-types';
 import SidebarHome from '../containers/SidebarHome';
 import SidebarSetting from '../containers/SidebarSetting';
 
-const Sidebar = ({ activeMenuName, isActive }) => (
-  <div id="sidebar" className={isActive ? ' active ' : 'inactive'}>
-    <div className="tab-content">
-      <div className={`tab-pane fade${activeMenuName === 'home' ? ' active show ' : ''}`} role="tabpanel" aria-labelledby="side-home-tab">
-        <SidebarHome />
-      </div>
-      <div className={`tab-pane fade${activeMenuName === 'setting' ? ' active show ' : ''}`} role="tabpanel" aria-labelledby="side-setting-tab">
-        <SidebarSetting />
+function Sidebar({ activeMenuName, isActive }) {
+  return (
+    <div id="sidebar" className={isActive ? ' active ' : 'inactive'}>
+      <div className="tab-content">
+        <div className={`tab-pane fade${activeMenuName === 'home' ? ' active show ' : ''}`} role="tabpanel" aria-labelledby="side-home-tab">
+          <SidebarHome />
+        </div>
+        <div className={`tab-pane fade${activeMenuName === 'setting' ? ' active show ' : ''}`} role="tabpanel" aria-labelledby="side-setting-tab">
+          <SidebarSetting />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+}
 
 Sidebar.propTypes = {
   activeMenuName: PropTypes.string.isRequired,

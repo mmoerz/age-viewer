@@ -19,9 +19,11 @@
 
 import React, { useRef, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import 'codemirror/keymap/sublime';
-import 'codemirror/addon/display/placeholder';
-import 'codemirror/theme/ambiance-mobile.css';
+import {
+  EditorView,
+  keymap,
+} from '@codemirror/view';
+import { cypher } from '@neo4j-cypher/react-codemirror'; // Example, adjust as needed
 import './CodeMirror.scss';
 import PropTypes from 'prop-types';
 
@@ -31,74 +33,77 @@ function CodeMirrorWrapper({
   const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
   const codeMirrorRef = useRef();
 
+  // Define custom keymaps
+  const customKeymap = [
+    {
+      key: 'Shift-Enter',
+      run: () => { onClick(); onChange(''); setCommandHistoryIndex(-1); return true; },
+    },
+    {
+      key: 'Ctrl-Enter',
+      run: () => { onClick(); onChange(''); setCommandHistoryIndex(-1); return true; },
+    },
+    {
+      key: 'Ctrl-Up',
+      run: () => {
+        if (commandHistory.length === 0) return true;
+        if (commandHistoryIndex === -1) {
+          const currentIdx = commandHistory.length - 1;
+          onChange(commandHistory[currentIdx]);
+          setCommandHistoryIndex(currentIdx);
+          return true;
+        }
+        if (commandHistoryIndex === 0) {
+          onChange(commandHistory[0]);
+          setCommandHistoryIndex(0);
+          return true;
+        }
+        onChange(commandHistory[commandHistoryIndex - 1]);
+        setCommandHistoryIndex(commandHistoryIndex - 1);
+        return true;
+      },
+    },
+    {
+      key: 'Ctrl-Down',
+      run: () => {
+        if (commandHistory.length === 0) return true;
+        if (commandHistoryIndex === -1) {
+          onChange('');
+          return true;
+        }
+        if (commandHistoryIndex === (commandHistory.length - 1)) {
+          onChange('');
+          setCommandHistoryIndex(-1);
+          return true;
+        }
+        onChange(commandHistory[commandHistoryIndex + 1]);
+        setCommandHistoryIndex(commandHistoryIndex + 1);
+        return true;
+      },
+    },
+  ];
+
   return (
     <CodeMirror
       id="editor"
       ref={codeMirrorRef}
       value={value}
-      options={{
-        keyMap: 'sublime',
-        mode: 'cypher',
-        placeholder: 'Create a query...',
-        tabSize: 4,
+      height="auto"
+      theme="ambiance-mobile"
+      extensions={[
+        cypher(),
+        keymap.of(customKeymap),
+        EditorView.lineWrapping,
+      ]}
+      placeholder="Create a query..."
+      onChange={(val) => onChange(val)}
+      basicSetup={{
         lineNumbers: true,
-        spellcheck: false,
-        autocorrect: false,
-        autocapitalize: false,
-        lineNumberFormatter: () => '$',
-        extraKeys: {
-          'Shift-Enter': (editor) => {
-            onClick();
-            editor.setValue('');
-            setCommandHistoryIndex(-1);
-          },
-          'Ctrl-Enter': (editor) => {
-            onClick();
-            editor.setValue('');
-            setCommandHistoryIndex(-1);
-          },
-          'Ctrl-Up': (editor) => {
-            if (commandHistory.length === 0) {
-              return;
-            }
-            if (commandHistoryIndex === -1) {
-              const currentIdx = commandHistory.length - 1;
-              editor.setValue(commandHistory[currentIdx]);
-              setCommandHistoryIndex(currentIdx);
-              return;
-            }
-            if (commandHistoryIndex === 0) {
-              editor.setValue(commandHistory[0]);
-              setCommandHistoryIndex(0);
-              return;
-            }
-
-            editor.setValue(commandHistory[commandHistoryIndex - 1]);
-            setCommandHistoryIndex(commandHistoryIndex - 1);
-          },
-          'Ctrl-Down': (editor) => {
-            if (commandHistory.length === 0) {
-              return;
-            }
-            if (commandHistoryIndex === -1) {
-              editor.setValue('');
-              return;
-            }
-
-            if (commandHistoryIndex === (commandHistory.length - 1)) {
-              editor.setValue('');
-              setCommandHistoryIndex(-1);
-              return;
-            }
-
-            editor.setValue(commandHistory[commandHistoryIndex + 1]);
-            setCommandHistoryIndex(commandHistoryIndex + 1);
-          },
-          Enter: (editor) => {
-            editor.replaceSelection('\n', 'end');
-          },
-        },
+        tabSize: 4,
       }}
+    />
+  );
+  /* stale code with more complex resizing logic
       onChange={(editor) => {
         onChange(editor.getValue());
         const lineCount = editor.lineCount();
@@ -120,6 +125,7 @@ function CodeMirrorWrapper({
       }}
     />
   );
+  */
 }
 
 CodeMirrorWrapper.propTypes = {

@@ -25,23 +25,28 @@ import { changeGraph } from '../../../features/database/DatabaseSlice';
 import { getMetaData, changeCurrentGraph } from '../../../features/database/MetadataSlice';
 
 const mapStateToProps = (state) => {
-  const currentGraphData = state.metadata.graphs[state.metadata.currentGraph] || '';
+  const currentGraphData = state.metadata.graphs[state.metadata.currentGraph] || {};
   return {
     currentGraph: state.metadata.currentGraph,
     graphs: Object.entries(state.metadata.graphs).map(([k, v]) => [k, v.id]),
-    edges: currentGraphData.edges,
-    nodes: currentGraphData.nodes,
-    propertyKeys: currentGraphData.propertyKeys,
-    dbname: state.metadata.dbname,
-    status: state.metadata.status,
-    role: currentGraphData.role,
-    command: state.editor.command,
-    isLabel: state.layout.isLabel,
+    edges: currentGraphData.edges || [],
+    nodes: currentGraphData.nodes || [],
+    propertyKeys: currentGraphData.propertyKeys || [],
+    dbname: state.metadata.dbname || '',
+    status: state.metadata.status || 'unknown',
+    role: currentGraphData.role || '',
+    command: state.editor.command || '',
+    isLabel: state.layout.isLabel || false,
   };
 };
 
-const mapDispatchToProps = {
-  setCommand, addFrame, trimFrame, getMetaData, changeCurrentGraph, changeGraph,
-};
+const mapDispatchToProps = (dispatch) => ({
+  setCommand: (cmd) => dispatch(setCommand(cmd)),
+  addFrame: (frame) => dispatch(addFrame(frame)),
+  trimFrame: (frame) => dispatch(trimFrame(frame)),
+  getMetaData: () => dispatch(getMetaData()),
+  changeCurrentGraph: (graph) => dispatch(changeCurrentGraph(graph)),
+  changeGraph: (graph) => dispatch(changeGraph(graph)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarHome);

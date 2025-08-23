@@ -19,7 +19,7 @@
 
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'antd/dist/antd.css';
+import 'antd/dist/reset.css';
 import './static/style.css';
 import './static/navbar-fixed-left.css';
 import MainPage from './pages/Main/MainPage';

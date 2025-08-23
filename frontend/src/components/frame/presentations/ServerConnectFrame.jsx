@@ -31,12 +31,12 @@ import { addAlert } from '../../../features/alert/AlertSlice';
 import { addFrame, trimFrame } from '../../../features/frame/FrameSlice';
 import { getMetaData } from '../../../features/database/MetadataSlice';
 
-const ServerConnectFrame = ({
+function ServerConnectFrame({
   refKey,
   isPinned,
   reqString,
   currentGraph,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loadingEnv, setLoadingEnv] = useState(true);
@@ -121,7 +121,7 @@ const ServerConnectFrame = ({
       </Row>
     </Frame>
   );
-};
+}
 
 ServerConnectFrame.propTypes = {
   refKey: PropTypes.string.isRequired,

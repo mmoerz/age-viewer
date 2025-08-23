@@ -4,7 +4,7 @@ import React from 'react';
 import uuid from 'react-uuid';
 import KeyWordFinder from '../../features/query_builder/KeyWordFinder';
 
-const BuilderSelection = ({ finder, setQuery, currentWord }) => {
+function BuilderSelection({ finder, setQuery, currentWord }) {
   const handleClick = (e) => {
     const selectedVal = e.target.getAttribute('data-val');
     setQuery(selectedVal);
@@ -28,7 +28,7 @@ const BuilderSelection = ({ finder, setQuery, currentWord }) => {
     }
     </ListGroup>
   );
-};
+}
 
 BuilderSelection.propTypes = {
   finder: PropTypes.shape(KeyWordFinder).isRequired,

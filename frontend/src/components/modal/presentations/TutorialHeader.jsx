@@ -21,7 +21,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
-const TutorialHeader = ({ page }) => {
+function TutorialHeader({ page }) {
   const [curPage, setCurPage] = useState();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const TutorialHeader = ({ page }) => {
       </Modal.Title>
     </Modal.Header>
   );
-};
+}
 
 TutorialHeader.propTypes = {
   page: PropTypes.string.isRequired,

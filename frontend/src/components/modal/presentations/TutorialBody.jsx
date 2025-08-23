@@ -26,7 +26,7 @@ import Copy from '../../../images/copy.png';
 import CSV from '../../../images/graphCSV.png';
 import Menu from '../../../images/graphMenu.png';
 
-const TutorialBody = ({ page, text, addiText }) => {
+function TutorialBody({ page, text, addiText }) {
   const [curImg, setCurImg] = useState();
   const [addiImg, setAddiImg] = useState();
   const [link, setLink] = useState();
@@ -73,10 +73,10 @@ const TutorialBody = ({ page, text, addiText }) => {
             </p>
             <Image className="tutorial-img" src={addiImg} fluid />
           </div>
-        ) : (<></>)}
+        ) : (null)}
     </Modal.Body>
   );
-};
+}
 
 TutorialBody.propTypes = {
   page: PropTypes.number.isRequired,

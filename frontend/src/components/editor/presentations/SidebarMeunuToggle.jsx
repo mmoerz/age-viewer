@@ -22,27 +22,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-const SidebarMeunuToggle = ({
+function SidebarMeunuToggle({
   isActive,
-}) => (
-  <div>
-    {
-      isActive === true
-        ? (
-          <FontAwesomeIcon
-            icon={faAngleUp}
-            size="3x"
-          />
-        )
-        : (
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            size="3x"
-          />
-        )
-    }
-  </div>
-);
+}) {
+  return (
+    <div>
+      {
+        isActive === true
+          ? (
+            <FontAwesomeIcon
+              icon={faAngleUp}
+              size="3x"
+            />
+          )
+          : (
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              size="3x"
+            />
+          )
+      }
+    </div>
+  );
+}
 
 SidebarMeunuToggle.propTypes = {
   isActive: PropTypes.bool.isRequired,

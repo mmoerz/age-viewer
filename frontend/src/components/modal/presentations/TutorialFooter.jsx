@@ -21,7 +21,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 
-const TutorialFooter = ({ page, setPage, closeTutorial }) => {
+function TutorialFooter({ page, setPage, closeTutorial }) {
   const [curPage, setCurPage] = useState();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const TutorialFooter = ({ page, setPage, closeTutorial }) => {
       </div>
     </Modal.Footer>
   );
-};
+}
 
 TutorialFooter.propTypes = {
   page: PropTypes.number.isRequired,

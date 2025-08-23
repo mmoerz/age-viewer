@@ -32,7 +32,7 @@ import BuilderContainer from '../../query_builder/BuilderContainer';
 import './DefaultTemplate.scss';
 import KeyWordFinder from '../../../features/query_builder/KeyWordFinder';
 
-const DefaultTemplate = ({
+function DefaultTemplate({
   theme,
   maxNumOfFrames,
   maxNumOfHistories,
@@ -40,7 +40,7 @@ const DefaultTemplate = ({
   maxDataOfTable,
   changeSettings,
   isOpen,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [stateValues] = useState({
@@ -130,7 +130,7 @@ const DefaultTemplate = ({
 
     </div>
   );
-};
+}
 
 DefaultTemplate.propTypes = {
   theme: PropTypes.string.isRequired,

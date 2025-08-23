@@ -13,7 +13,7 @@ import { addAlert } from '../../../features/alert/AlertSlice';
 import { changeGraph } from '../../../features/database/DatabaseSlice';
 import { changeCurrentGraph, getMetaData } from '../../../features/database/MetadataSlice';
 
-const InitGraphModal = ({ show, setShow }) => {
+function InitGraphModal({ show, setShow }) {
   const [nodeFiles, setNodeFiles] = useState({});
   const [edgeFiles, setEdgeFiles] = useState({});
   const [graphName, setGraphName] = useState('');
@@ -261,7 +261,7 @@ const InitGraphModal = ({ show, setShow }) => {
     </div>
 
   );
-};
+}
 
 InitGraphModal.propTypes = {
   show: PropTypes.bool.isRequired,

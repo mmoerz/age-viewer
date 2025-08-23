@@ -31,9 +31,9 @@ import FrameStyles from '../Frame.module.scss';
 import Tutorial from '../../modal/containers/Tutorial';
 import { openTutorial } from '../../../features/modal/ModalSlice';
 
-const ServerStatusFrame = ({
+function ServerStatusFrame({
   refKey, isPinned, reqString, serverInfo, data, isTutorial,
-}) => {
+}) {
   const dispatch = useDispatch();
   const [elements, setElements] = useState({ edges: [], nodes: [] });
   const [showModal, setShow] = useState(false);
@@ -102,28 +102,26 @@ const ServerStatusFrame = ({
     }
     if (status === 'disconnected') {
       return (
-        <>
-          <Row>
-            <Col span={6}>
-              <h3>Connection Status</h3>
-              <p>You are currently not connected to Database</p>
-            </Col>
-            <Col span={18}>
-              <p>
-                You may run
-                <a href="/#" className="badge badge-light">
-                  <FontAwesomeIcon
-                    icon={faPlayCircle}
-                    size="lg"
-                  />
-                  :server connect
-                </a>
-                {' '}
-                to access to Database.
-              </p>
-            </Col>
-          </Row>
-        </>
+        <Row>
+          <Col span={6}>
+            <h3>Connection Status</h3>
+            <p>You are currently not connected to Database</p>
+          </Col>
+          <Col span={18}>
+            <p>
+              You may run
+              <a href="/#" className="badge badge-light">
+                <FontAwesomeIcon
+                  icon={faPlayCircle}
+                  size="lg"
+                />
+                :server connect
+              </a>
+              {' '}
+              to access to Database.
+            </p>
+          </Col>
+        </Row>
       );
     }
     return null;
@@ -137,7 +135,7 @@ const ServerStatusFrame = ({
       {setContent()}
     </Frame>
   );
-};
+}
 
 ServerStatusFrame.propTypes = {
   refKey: PropTypes.string.isRequired,

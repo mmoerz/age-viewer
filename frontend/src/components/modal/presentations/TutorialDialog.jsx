@@ -24,7 +24,7 @@ import TutorialFooter from './TutorialFooter';
 import TutorialHeader from './TutorialHeader';
 import TutorialBody from './TutorialBody';
 
-const TutorialDialog = ({ closeTutorial }) => {
+function TutorialDialog({ closeTutorial }) {
   const [page, setPage] = useState(1);
   const firstPage = (curPage) => {
     if (curPage === 1) {
@@ -157,7 +157,7 @@ const TutorialDialog = ({ closeTutorial }) => {
       {firstPage(page)}
     </>
   );
-};
+}
 
 TutorialDialog.propTypes = {
   closeTutorial: PropTypes.func.isRequired,

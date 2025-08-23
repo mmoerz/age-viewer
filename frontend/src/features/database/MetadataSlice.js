@@ -24,7 +24,8 @@ export const getMetaData = createAsyncThunk(
   'database/getMetaData',
   async (arg) => {
     try {
-      const response = await fetch('/api/v1/db/meta',
+      const response = await fetch(
+        '/api/v1/db/meta',
         {
           method: 'POST',
           headers: {
@@ -32,7 +33,8 @@ export const getMetaData = createAsyncThunk(
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(arg),
-        });
+        },
+      );
       if (response.ok) {
         const ret = await response.json();
         Object.keys(ret).forEach((gname) => {
