@@ -24,7 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { Col, Row } from 'antd';
 import { Button } from 'react-bootstrap';
-import MetadataCytoscapeChart from '../../cytoscape/MetadataCytoscapeChart';
+// import MetadataCytoscapeChart from '../../cytoscape/MetadataCytoscapeChart';
 import InitGraphModal from '../../initializer/presentation/GraphInitializer';
 import Frame from '../Frame';
 import FrameStyles from '../Frame.module.scss';
@@ -94,8 +94,7 @@ function ServerStatusFrame({
               height: '0.3px',
             }}
             />
-
-            <MetadataCytoscapeChart elements={elements} />
+            {/* <MetadataCytoscapeChart elements={elements} /> */}
           </div>
         </>
       );

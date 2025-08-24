@@ -110,24 +110,38 @@ function GraphSelectDropdown({
     marginTop: '1rem',
     display: 'block',
   };
+
+  // Handle empty graphs or no connection
+  const noGraphs = !graphs || graphs.length === 0;
+
   const handleGraphClick = (_, e) => {
     changeCurrentGraph({ id: e['data-gid'] });
     changeGraphDB({ graphName: e.value });
   };
 
   const options = (
-    graphs.map(([gname, graphId]) => (
-      <Select.Option value={gname} data-gid={graphId}>{gname}</Select.Option>
-    ))
+    graphs && graphs.length > 0
+      ? graphs.map(([gname, graphId]) => (
+        <Select.Option key={graphId} value={gname} data-gid={graphId}>{gname}</Select.Option>
+      ))
+      : null
   );
   return (
     <Col id="graphSelectionContainer">
-      <Select onChange={handleGraphClick} placeholder="Select Graph" style={selectStyle} value={currentGraph}>
+      <Select
+        onChange={handleGraphClick}
+        placeholder={noGraphs ? 'No graphs available' : 'Select Graph'}
+        style={selectStyle}
+        value={noGraphs ? undefined : currentGraph}
+        disabled={noGraphs}
+      >
         {options}
       </Select>
       <br />
       <b>
-        Current Graph
+        {noGraphs
+          ? 'No graph selected or no database connection'
+          : `Current Graph${currentGraph ? `: ${currentGraph}` : ''}`}
       </b>
     </Col>
   );

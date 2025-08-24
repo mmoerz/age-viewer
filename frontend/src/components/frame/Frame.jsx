@@ -57,9 +57,6 @@ function Frame({
 
   // const downloadMenu = () => (
   //   <Menu onClick={(e) => onDownload(e)}>
-  //     <Menu.Item key="png">
-  //       Save as PNG
-  //     </Menu.Item>
   //     <Menu.Item key="json">
   //       Save as JSON
   //     </Menu.Item>
@@ -89,19 +86,21 @@ function Frame({
           />
         </div>
         <div className={styles.ButtonArea}>
-          {!isTable && onThick ? (
-            <Popover placement="bottomLeft" content={thicnessMenu} trigger="click">
-              <Button
-                size="large"
-                type="link"
-                className={styles.FrameButton}
-                title="Edge Weight"
-                onClick={() => onThick()}
-              >
-                <EdgeWeight />
-              </Button>
-            </Popover>
-          ) : null}
+          {
+            isTable === false && onThick ? (
+              <Popover placement="bottomLeft" content={thicnessMenu} trigger="click">
+                <Button
+                  size="large"
+                  type="link"
+                  className={styles.FrameButton}
+                  title="Edge Weight"
+                  onClick={() => onThick()}
+                >
+                  <EdgeWeight />
+                </Button>
+              </Popover>
+            ) : null
+          }
           {onSearchCancel ? (
             <Button
               size="large"
@@ -159,7 +158,7 @@ function Frame({
             />
           </Button>
           {
-            !isTable && onRefresh ? (
+            isTable === false && onRefresh ? (
               <Button
                 size="large"
                 type="link"
@@ -232,6 +231,7 @@ Frame.defaultProps = {
   thicnessMenu: null,
   onRefresh: null,
   bodyNoPadding: false,
+  isTable: undefined,
 };
 
 Frame.propTypes = {
@@ -244,7 +244,7 @@ Frame.propTypes = {
   onSearchCancel: PropTypes.func,
   onRefresh: PropTypes.func,
   bodyNoPadding: PropTypes.bool,
-  isTable: PropTypes.bool.isRequired,
+  isTable: PropTypes.bool,
 };
 
 export default Frame;

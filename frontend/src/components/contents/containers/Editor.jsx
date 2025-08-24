@@ -23,7 +23,6 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import Editor from '../presentations/Editor';
 import {
@@ -99,41 +98,5 @@ function EditorContainer() {
     />
   );
 }
-
-Editor.propTypes = {
-  alertList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      message: PropTypes.string,
-      type: PropTypes.string,
-    }),
-  ).isRequired,
-  database: PropTypes.shape({
-    host: PropTypes.string.isRequired,
-    port: PropTypes.number.isRequired,
-    user: PropTypes.string,
-    password: PropTypes.string,
-    database: PropTypes.string,
-    graph: PropTypes.string,
-    status: PropTypes.string,
-  }).isRequired,
-  command: PropTypes.string.isRequired,
-  update: PropTypes.bool.isRequired,
-  isActive: PropTypes.bool,
-  activeRequests: PropTypes.arrayOf(PropTypes.string).isRequired,
-  isLabel: PropTypes.bool,
-  setCommand: PropTypes.func.isRequired,
-  addFrame: PropTypes.func.isRequired,
-  trimFrame: PropTypes.func.isRequired,
-  removeFrame: PropTypes.func.isRequired,
-  addAlert: PropTypes.func.isRequired,
-  getConnectionStatus: PropTypes.func.isRequired,
-  executeCypherQuery: PropTypes.func.isRequired,
-  addCommandHistory: PropTypes.func.isRequired,
-  addCommandFavorites: PropTypes.func.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
-  getMetaData: PropTypes.func.isRequired,
-  setLabel: PropTypes.func.isRequired,
-};
 
 export default EditorContainer;

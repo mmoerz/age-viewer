@@ -4,7 +4,7 @@ services:
     image: "docker.io/apache/age:latest"
     #user: "${UID}:${GID}"
     volumes:
-      - ./data/postgresql:/var/lib/postgresql/data:z
+      - ./data/postgresql:/var/lib/postgresql/data:Z
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres

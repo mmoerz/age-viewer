@@ -457,7 +457,7 @@ const spreadLayout = {
   randomize: false, // Uses random initial node positions on true
 };
 
-export const seletableLayouts = {
+export const selectableLayouts = {
   random: randomLayout,
   grid: gridLayout,
   breadthFirst: breadthFirstLayout,
@@ -472,4 +472,4 @@ export const seletableLayouts = {
   spread: spreadLayout,
 };
 
-export const defaultLayout = seletableLayouts.coseBilkent;
+export const defaultLayout = selectableLayouts.coseBilkent;

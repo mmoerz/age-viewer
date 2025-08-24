@@ -42,7 +42,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import uuid from 'react-uuid';
 import cxtmenu from 'cytoscape-cxtmenu';
-import { initLocation, seletableLayouts } from './CytoscapeLayouts';
+import { initLocation, selectableLayouts } from './CytoscapeLayouts';
 import { stylesheet } from './CytoscapeStyleSheet';
 import { generateCytoscapeElement } from '../../features/cypher/CypherUtil';
 import IconFilter from '../../icons/IconFilter';
@@ -167,7 +167,7 @@ function CypherResultCytoscapeCharts({
       ...cytoscapeObject.nodes().getElementById(centerId).position(),
     };
     cytoscapeObject.elements().unlock();
-    rerenderTargets.layout(seletableLayouts.concentric).run();
+    rerenderTargets.layout(selectableLayouts.concentric).run();
 
     const centerMovedPosition = {
       ...cytoscapeObject.nodes().getElementById(centerId).position(),
@@ -315,7 +315,7 @@ function CypherResultCytoscapeCharts({
   useEffect(() => {
     const cytoscapeObject = cytoRef.current;
     if (cytoscapeLayout && cytoscapeObject) {
-      const selectedLayout = seletableLayouts[cytoscapeLayout];
+      const selectedLayout = selectableLayouts[cytoscapeLayout];
       selectedLayout.animate = true;
       selectedLayout.fit = true;
 

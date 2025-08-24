@@ -28,7 +28,7 @@ import euler from 'cytoscape-euler';
 import avsdf from 'cytoscape-avsdf';
 import spread from 'cytoscape-spread';
 import CytoscapeComponent from 'react-cytoscapejs';
-import { seletableLayouts } from './CytoscapeLayouts';
+import { selectableLayouts } from './CytoscapeLayouts';
 import { stylesheet } from './CytoscapeStyleSheet';
 
 import styles from '../frame/Frame.module.scss';
@@ -69,7 +69,7 @@ function MetadataCytoscapeChart({ elements }) {
 
       cytoscapeObject.minZoom(1e-1);
       cytoscapeObject.maxZoom(1.5);
-      const selectedLayout = seletableLayouts.coseBilkent;
+      const selectedLayout = selectableLayouts.coseBilkent;
       selectedLayout.animate = true;
       selectedLayout.fit = true;
       cytoscapeObject.layout(selectedLayout).run();
