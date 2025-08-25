@@ -19,7 +19,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -67,7 +67,7 @@ function Editor({
   };
 
   const onClick = () => {
-    const refKey = uuid();
+    const refKey = uuid.v4();
     if (command.toUpperCase().startsWith(':PLAY')) {
       dispatch(() => addFrame(command, 'Contents', refKey));
     } else if (command.toUpperCase().startsWith(':CSV')) {

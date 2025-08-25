@@ -18,7 +18,7 @@
  */
 
 import { createSlice } from '@reduxjs/toolkit';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 
 const AlertSlice = createSlice({
   name: 'alerts',
@@ -32,7 +32,7 @@ const AlertSlice = createSlice({
           alertType = 'Error';
         }
 
-        state.push({ alertName, alertProps: { key: uuid(), alertType, errorMessage } });
+        state.push({ alertName, alertProps: { key: uuid.v4(), alertType, errorMessage } });
       },
       prepare: (alertName, message) => ({ payload: { alertName, message } }),
     },

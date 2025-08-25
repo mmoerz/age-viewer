@@ -24,10 +24,10 @@ import {
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 
 const generateNewFilterObject = () => ({
-  key: uuid(),
+  key: uuid.v4(),
   keyword: null,
   property: null,
 });

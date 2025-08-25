@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 import PropTypes from 'prop-types';
 import './GraphInit.scss';
 import { Divider, Checkbox, Input } from 'antd';
@@ -34,7 +34,7 @@ function InitGraphModal({ show, setShow }) {
   };
   const handleSelectNodeFiles = (e) => {
     Array.from(e.target.files).forEach((file) => {
-      const key = uuid();
+      const key = uuid.v4();
       nodeFiles[key] = {
         data: file,
         name: '',
@@ -46,7 +46,7 @@ function InitGraphModal({ show, setShow }) {
 
   const handleSelectEdgeFiles = (e) => {
     Array.from(e.target.files).forEach((file) => {
-      const key = uuid();
+      const key = uuid.v4();
       edgeFiles[key] = {
         data: file,
         name: '',

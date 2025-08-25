@@ -18,7 +18,7 @@
  */
 
 import React, { createRef, useEffect, useState } from 'react';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 import { saveAs } from 'file-saver';
 import { Parser } from 'json2csv';
 import PropTypes from 'prop-types';
@@ -36,7 +36,7 @@ function CypherResultFrame({
   reqString,
 }) {
   const chartAreaRef = createRef();
-  const [cytoscapeContainerKey, setCytoscapeContainerKey] = useState(uuid());
+  const [cytoscapeContainerKey, setCytoscapeContainerKey] = useState(uuid.v4());
 
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [thicknessModalVisible, setThicknessModalVisible] = useState(false);
@@ -116,7 +116,7 @@ function CypherResultFrame({
   }, [globalThickness]);
 
   const refreshFrame = () => {
-    setCytoscapeContainerKey(uuid());
+    setCytoscapeContainerKey(uuid.v4());
   };
 
   const downloadPng = () => {

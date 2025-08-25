@@ -20,7 +20,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Badge } from 'react-bootstrap';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
@@ -81,7 +81,7 @@ class CypherResultCytoscapeLegend extends Component {
         <Badge
           className="nodeLabel px-3 py-2 mx-1 my-2"
           pill
-          key={uuid()}
+          key={uuid.v4()}
           onClick={() => nextProps.onLabelClick({
             type: 'labels',
             data: {
@@ -131,7 +131,7 @@ class CypherResultCytoscapeLegend extends Component {
         label,
         <Badge
           className="edgeLabel px-3 py-2 mx-1 my-2"
-          key={uuid()}
+          key={uuid.v4()}
           onClick={() => nextProps.onLabelClick({
             type: 'labels',
             data: {

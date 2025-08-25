@@ -21,7 +21,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Modal } from 'antd';
-import uuid from 'react-uuid';
+import uuid from 'react-native-uuid';
 import { connect, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -73,7 +73,7 @@ function NodeList({ nodes, setCommand }) {
   if (nodes) {
     list = nodes.map((item) => (
       <NodeItems
-        key={uuid()}
+        key={uuid.v4()}
         label={item.label}
         cnt={item.cnt}
         setCommand={setCommand}
@@ -135,7 +135,7 @@ function EdgeList({ edges, setCommand }) {
   if (edges) {
     list = edges.map((item) => (
       <EdgeItems
-        key={uuid()}
+        key={uuid.v4()}
         label={item.label}
         cnt={item.cnt}
         setCommand={setCommand}
@@ -195,7 +195,7 @@ function PropertyList({ propertyKeys, setCommand }) {
   if (propertyKeys) {
     list = propertyKeys.map((item) => (
       <PropertyItems
-        key={uuid()}
+        key={uuid.v4()}
         propertyName={item.key}
         keyType={item.key_type}
         setCommand={setCommand}
@@ -252,7 +252,7 @@ function GraphList({
   if (graphs) {
     list = graphs.map((item) => (
       <GraphItems
-        key={uuid()}
+        key={uuid.v4()}
         graph={item[0]}
         gid={item[1]}
         currentGraph={currentGraph}
@@ -381,7 +381,7 @@ function SidebarHome({
   }, [currentGraph]);
 
   const requestDisconnect = () => {
-    const refKey = uuid();
+    const refKey = uuid.v4();
     dispatch(() => trimFrame('ServerDisconnect'));
     dispatch(() => addFrame(command, 'ServerDisconnect', refKey));
   };

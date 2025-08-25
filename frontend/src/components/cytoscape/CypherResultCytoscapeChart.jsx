@@ -19,7 +19,10 @@
 // import React, { useCallback, useEffect, useState, useRef } from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import uuid from 'react-native-uuid';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
 import cytoscape from 'cytoscape';
 import COSEBilkent from 'cytoscape-cose-bilkent';
 import cola from 'cytoscape-cola';
@@ -29,8 +32,7 @@ import euler from 'cytoscape-euler';
 import avsdf from 'cytoscape-avsdf';
 import spread from 'cytoscape-spread';
 import svg from 'cytoscape-svg';
-import nodeHtmlLabel from 'cytoscape-node-html-label';
-import { useDispatch } from 'react-redux';
+import * as nodeHtmlLabel from 'cytoscape-node-html-label';
 import CytoscapeComponent from 'react-cytoscapejs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -40,7 +42,6 @@ import {
   faTrash,
   faThumbtack,
 } from '@fortawesome/free-solid-svg-icons';
-import uuid from 'react-uuid';
 import cxtmenu from 'cytoscape-cxtmenu';
 import { initLocation, selectableLayouts } from './CytoscapeLayouts';
 import { stylesheet } from './CytoscapeStyleSheet';
@@ -59,7 +60,10 @@ cytoscape.use(avsdf);
 cytoscape.use(spread);
 cytoscape.use(cxtmenu);
 cytoscape.use(svg);
-cytoscape.use(nodeHtmlLabel);
+cytoscape.use(nodeHtmlLabel.default || nodeHtmlLabel);
+
+console.log('layouts registered?', typeof cytoscape.prototype.layout);
+console.log('nodeHtmlLabel registered?', typeof cytoscape.prototype.nodeHtmlLabel);
 
 function CypherResultCytoscapeCharts({
   elements,
@@ -272,7 +276,7 @@ function CypherResultCytoscapeCharts({
             content: ReactDOMServer.renderToString(<IconFilter size="lg" />),
             select(ele) {
               const newFilterObject = {
-                key: uuid(),
+                key: uuid.v4(),
                 keyword: ele.data().properties[ele.data().caption],
                 property: {
                   label: ele.data().label,
@@ -335,6 +339,9 @@ function CypherResultCytoscapeCharts({
       const ref = cytoRef;
       if (ref.current) return;
       ref.current = newCytoscapeObject;
+
+      console.log('layouts registered?', typeof newCytoscapeObject.prototype.layout);
+      console.log('nodeHtmlLabel registered?', typeof newCytoscapeObject.prototype.nodeHtmlLabel);
 
       // Enable node-html-label
       newCytoscapeObject.nodeHtmlLabel([

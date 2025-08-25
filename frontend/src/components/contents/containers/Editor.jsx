@@ -58,7 +58,10 @@ function EditorContainer() {
   // Wrap actions in useCallback for stable references
   const actions = {
     setCommand: useCallback((cmd) => dispatch(setCommand(cmd)), [dispatch]),
-    addFrame: useCallback((frame) => dispatch(addFrame(frame)), [dispatch]),
+    addFrame: useCallback(
+      (reqString, frameName, refKey) => dispatch(addFrame(reqString, frameName, refKey)),
+      [dispatch],
+    ),
     trimFrame: useCallback((frame) => dispatch(trimFrame(frame)), [dispatch]),
     removeFrame: useCallback((frame) => dispatch(removeFrame(frame)), [dispatch]),
     addAlert: useCallback((alert) => dispatch(addAlert(alert)), [dispatch]),
