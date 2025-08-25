@@ -21,9 +21,8 @@ import React, {
   useEffect, useRef, useState,
 } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import uuid from 'react-native-uuid';
+// import uuid from 'react-native-uuid';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 
 import cytoscape from 'cytoscape';
 
