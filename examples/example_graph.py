@@ -15,15 +15,18 @@ cur = conn.cursor()
 cur.execute("LOAD 'age';")
 cur.execute("SET search_path = ag_catalog, \"$user\", public;")
 
+# Drop graph if it exists
+cur.execute("SELECT * FROM drop_graph('example_graph', true);")
+
 # Create a graph (if not exists)
 cur.execute("SELECT create_graph('example_graph');")
 
 # Insert nodes
 cur.execute("""
     SELECT * FROM cypher('example_graph', $$
-        CREATE (a:Person {name: 'Alice'})
-        CREATE (b:Person {name: 'Bob'})
-        CREATE (c:Person {name: 'Carol'})
+        CREATE (a:Person {name: 'Alice', lastname: 'Smith'})
+        CREATE (b:Person {name: 'Bob', lastname: 'Johnson'})
+        CREATE (c:Person {name: 'Carol', lastname: 'Williams'})
         RETURN a, b, c
     $$) as (a agtype, b agtype, c agtype);
 """)
