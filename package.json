@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.28.2",
-    "@neo4j-cypher/react-codemirror": "^2.0.0-next.26",
     "glob": "^11.0.3",
     "npm-run-all2": "^8.0.4",
     "pm2": "^6.0.8"

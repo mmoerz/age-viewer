@@ -21,7 +21,10 @@ import React, {
   useEffect, useRef, useState,
 } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import uuid from 'react-native-uuid';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
 import cytoscape from 'cytoscape';
 
 // Cytoscape layouts & plugins
@@ -65,7 +68,6 @@ cytoscape.use(spread);
 cytoscape.use(cxtmenu);
 cytoscape.use(svg);
 nodeHtmlLabel(cytoscape);
-// cytoscape.use(nodeHtmlLabel);
 
 function CypherResultCytoscapeCharts({
   elements,
