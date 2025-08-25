@@ -20,13 +20,22 @@
 import { connect } from 'react-redux';
 import CodeMirrorWrapper from '../presentations/CodeMirrorWrapper';
 
-const mapStateToProps = (state) => ({
-  commandHistory: state.editor.commandHistory.slice(
-    Math.max((state.editor.commandHistory.length - state.setting.maxNumOfHistories === 0
-      ? state.editor.commandHistory.length : state.setting.maxNumOfHistories), 0),
-  ),
-  commandFavorites: state.editor.commandFavorites.slice(0),
-});
+const mapStateToProps = (state) => {
+  console.log('Redux commandHistory:', state.editor.commandHistory);
+  return {
+    commandHistory: state.editor.commandHistory
+      .slice(
+        Math.max(
+          (state.editor.commandHistory.length - state.setting.maxNumOfHistories === 0
+            ? state.editor.commandHistory.length
+            : state.setting.maxNumOfHistories),
+          0,
+        ),
+      )
+      .map((cmd) => (typeof cmd === 'string' ? cmd : cmd.text || '')), // ensure strings
+    commandFavorites: state.editor.commandFavorites.slice(0),
+  };
+};
 
 const mapDispatchToProps = { };
 

@@ -66,6 +66,11 @@ function Editor({
     setCommand('');
   };
 
+  // eslint-disable-next-line no-unused-vars
+  const onChange = (value, _viewUpdate) => {
+    setCommand(value);
+  };
+
   const onClick = () => {
     const refKey = uuid.v4();
     if (command.toUpperCase().startsWith(':PLAY')) {
@@ -152,9 +157,8 @@ function Editor({
 
             <div id="codeMirrorEditor" className="form-control col-11 editor-code-wrapper">
               <CodeMirrorWrapper
-                onClick={onClick}
                 value={command}
-                onChange={setCommand}
+                onChange={onChange}
               />
             </div>
             <div className="input-group-append ml-auto editor-button-wrapper" id="editor-buttons">

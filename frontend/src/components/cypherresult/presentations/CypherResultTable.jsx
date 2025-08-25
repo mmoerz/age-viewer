@@ -20,7 +20,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
-import { v4 as uuid } from 'react-native-uuid';
+import uuid from 'react-native-uuid';
 import CypherResultTab from '../../cytoscape/CypherResultTab';
 
 function CypherResultTable({ data, ...props }) {
@@ -28,7 +28,7 @@ function CypherResultTable({ data, ...props }) {
   const [localRows, setLocalRows] = useState([]);
 
   useEffect(() => {
-    const randKeyName = `key_${uuid()}`;
+    const randKeyName = `key_${uuid.v4()}`;
     let hasKey = false;
     const columnsForFTable = [];
     data.columns.forEach((key) => {
@@ -68,7 +68,7 @@ function CypherResultTable({ data, ...props }) {
           newItem[randKeyName] = newItem.key;
           delete newItem.key;
         }
-        filteredItem.key = uuid();
+        filteredItem.key = uuid.v4();
         return filteredItem;
       }));
     } else {
@@ -80,7 +80,7 @@ function CypherResultTable({ data, ...props }) {
           newItem[randKeyName] = newItem.key;
           delete newItem.key;
         }
-        newItem.key = uuid();
+        newItem.key = uuid.v4();
         return newItem;
       }));
     }

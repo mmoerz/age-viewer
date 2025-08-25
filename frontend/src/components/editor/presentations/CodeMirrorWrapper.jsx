@@ -17,109 +17,148 @@
  * under the License.
  */
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
+// import React, { useRef, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import {
-  EditorView,
-  keymap,
-} from '@codemirror/view';
-import { oneDark } from '@codemirror/theme-one-dark';
-// import '@codemirror/autocomplete';
+import { javascript } from '@codemirror/lang-javascript';
+// import { kimbie } from '@uiw/codemirror-theme-kimbie';
+// import {
+//   EditorView,
+//   keymap,
+// } from '@codemirror/view';
 // import { LanguageSupport } from '@neo4j-cypher/react-codemirror'; // Example, adjust as needed
 // cypher support seams to be broken with neo4j-cypher 0.4.6, so using basic sql support for now
 
-import { sql } from '@codemirror/lang-sql';
+// import { sql } from '@codemirror/lang-sql';
 import './CodeMirror.scss';
 import PropTypes from 'prop-types';
 
 function CodeMirrorWrapper({
-  value, onChange, commandHistory, onClick,
+  value, onChange, commandHistory, // onClick,
 }) {
-  const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
-  const codeMirrorRef = useRef();
+  // const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
+  // const codeMirrorRef = useRef();
 
   // Attach click handler to the editor DOM node
+  /*
   React.useEffect(() => {
-    if (typeof onClick === 'function' && codeMirrorRef.current) {
-      const editorDOM = codeMirrorRef.current.editor?.contentDOM;
-      if (editorDOM) {
-        editorDOM.addEventListener('click', onClick);
-        return () => editorDOM.removeEventListener('click', onClick);
-      }
+    // old codemirror api v5
+    // if (typeof onClick === 'function' && codeMirrorRef.current) {
+    //  const editorDOM = codeMirrorRef.current.editor?.contentDOM;
+    //  if (editorDOM) {
+    //    editorDOM.addEventListener('click', onClick);
+    //    return () => editorDOM.removeEventListener('click', onClick);
+    //  }
+    // }
+    if (typeof onClick === 'function' && editorRef.current?.view) {
+      // updated to new codemirror api v6
+      const dom = editorRef.current.view.dom;
+      dom.addEventListener('click', onClick);
+      return () => dom.removeEventListener('click', onClick);
     }
     return undefined;
   }, [onClick]);
-
+*/
   // Define custom keymaps
-  const customKeymap = [
+  /* const customKeymap = [
     {
       key: 'Shift-Enter',
-      run: () => { onChange(''); setCommandHistoryIndex(-1); return true; },
+      run: () => {
+        onChange('');
+        setCommandHistoryIndex(commandHistory.length);
+        return true;
+      },
     },
     {
       key: 'Ctrl-Enter',
-      run: () => { onChange(''); setCommandHistoryIndex(-1); return true; },
+      run: () => {
+        onChange('');
+        setCommandHistoryIndex(commandHistory.length);
+        return true;
+      },
     },
     {
       key: 'Ctrl-Up',
       run: () => {
-        if (commandHistory.length === 0) return true;
-        if (commandHistoryIndex === -1) {
-          const currentIdx = commandHistory.length - 1;
-          onChange(commandHistory[currentIdx]);
-          setCommandHistoryIndex(currentIdx);
-          return true;
+        if (!commandHistory || commandHistory.length === 0) return true;
+
+        let newIndex = commandHistoryIndex;
+        if (commandHistoryIndex <= 0) {
+          newIndex = commandHistory.length - 1; // wrap to last
+        } else {
+          newIndex = commandHistoryIndex - 1;
         }
-        if (commandHistoryIndex === 0) {
-          onChange(commandHistory[0]);
-          setCommandHistoryIndex(0);
-          return true;
-        }
-        onChange(commandHistory[commandHistoryIndex - 1]);
-        setCommandHistoryIndex(commandHistoryIndex - 1);
+
+        onChange(commandHistory[newIndex] || '');
+        setCommandHistoryIndex(newIndex);
         return true;
       },
     },
     {
       key: 'Ctrl-Down',
       run: () => {
-        if (commandHistory.length === 0) return true;
-        if (commandHistoryIndex === -1) {
-          onChange('');
-          return true;
+        if (!commandHistory || commandHistory.length === 0) return true;
+
+        let newIndex = commandHistoryIndex;
+        if (commandHistoryIndex === commandHistory.length - 1 || commandHistoryIndex === -1) {
+          newIndex = -1; // reset to empty
+        } else {
+          newIndex = commandHistoryIndex + 1;
         }
-        if (commandHistoryIndex === (commandHistory.length - 1)) {
-          onChange('');
-          setCommandHistoryIndex(-1);
-          return true;
-        }
-        onChange(commandHistory[commandHistoryIndex + 1]);
-        setCommandHistoryIndex(commandHistoryIndex + 1);
+
+        onChange(newIndex === -1 ? '' : commandHistory[newIndex]);
+        setCommandHistoryIndex(newIndex);
         return true;
       },
     },
   ];
+  */
 
+  // eslint-disable-next-line no-unused-vars
+  const onChangeI = React.useCallback((val, _viewUpdate) => {
+    console.log('val:', val);
+  }, []);
+
+  console.log('Rendering CodeMirrorWrapper');
+  console.log('commandHistory:', commandHistory);
+  // console.log('commandHistoryIndex:', commandHistoryIndex);
+  console.log('value:', value);
+  // console.log('kimbie:', kimbie);
+  console.log('onChange:', onChange);
+  // console.log('onClick:', onClick);
+
+  // yeah hardcoded for debugging
+  return (
+    <CodeMirror
+      value=""
+      height="200px"
+      extensions={[javascript({ jsx: true })]}
+      onChange={() => {}}
+    />
+  );
+
+  /*
   return (
     <CodeMirror
       id="editor"
       ref={codeMirrorRef}
       value={value}
       height="auto"
-      theme={oneDark}
+      theme={kimbie}
       extensions={[
         sql(),
         keymap.of(customKeymap),
         EditorView.lineWrapping,
       ]}
       placeholder="Create a query..."
-      onChange={(val) => onChange(val)}
+      onChange={(onchValue, viewUpdate) => onChange(onchValue, viewUpdate)}
       basicSetup={{
         lineNumbers: true,
         tabSize: 4,
       }}
     />
   );
+  */
   /* stale code with more complex resizing logic
       onChange={(editor) => {
         onChange(editor.getValue());
@@ -149,11 +188,11 @@ CodeMirrorWrapper.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   commandHistory: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onClick: PropTypes.func,
+  // onClick: PropTypes.func,
 };
 
-CodeMirrorWrapper.defaultProps = {
-  onClick: undefined,
-};
+// CodeMirrorWrapper.defaultProps = {
+//   onClick: undefined,
+// };
 
 export default CodeMirrorWrapper;
