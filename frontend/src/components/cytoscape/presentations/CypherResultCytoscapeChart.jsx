@@ -107,7 +107,7 @@ function CypherResultCytoscapeCharts({
     // select elements (nodes + edges, or just nodes if you prefer)
     const targetElements = cyInstance.elements();
 
-    // ✅ bind mouseover callback
+    // bind mouseover callback
     targetElements.bind('mouseover', (e) => {
       if (onElementsMouseover) {
         onElementsMouseover({ type: e.target.group(), data: e.target.data() });

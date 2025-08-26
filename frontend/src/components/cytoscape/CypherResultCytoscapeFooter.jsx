@@ -39,7 +39,7 @@ function CypherResultCytoscapeFooter({
   colorChange,
   sizeChange,
   captionChange,
-  selectedCaption,
+  selectedCaption = null,
   captions,
   setCytoscapeLayout,
   cytoscapeLayout,
@@ -361,10 +361,6 @@ function CypherResultCytoscapeFooter({
   );
 }
 
-CypherResultCytoscapeFooter.defaultProps = {
-  selectedCaption: null,
-};
-
 CypherResultCytoscapeFooter.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   footerData: PropTypes.any.isRequired,
@@ -401,6 +397,7 @@ CypherResultCytoscapeFooter.propTypes = {
   captionChange: PropTypes.func.isRequired,
   setCytoscapeLayout: PropTypes.func.isRequired,
   cytoscapeLayout: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   selectedCaption: PropTypes.string,
   captions: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

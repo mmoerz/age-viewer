@@ -37,7 +37,7 @@ function GraphFilterModal({
   setVisible,
   onSubmit,
   properties,
-  globalFilter,
+  globalFilterExists,
   isTable,
 }) {
   const [propertyElements, setPropertyElements] = useState([]);
@@ -50,7 +50,7 @@ function GraphFilterModal({
     if (visible === true) {
       setPropertyElements(null);
     }
-    if (visible === true && globalFilter === null) {
+    if (visible === true && globalFilterExists === false) {
       setFilterElements(null);
     }
   }, [visible]);
@@ -135,7 +135,7 @@ function GraphFilterModal({
           <div style={{ width: '1px' }} />
           <Input
             style={{ flex: 1 }}
-            defaultValue={(globalFilter === null) ? '' : filterList[index].keyword}
+            defaultValue={(globalFilterExists === false) ? '' : filterList[index].keyword}
             onChange={(event) => {
               filterList[index].keyword = event.target.value;
               setFilterList(filterList);
@@ -171,7 +171,7 @@ GraphFilterModal.propTypes = {
     label: PropTypes.string,
     property: PropTypes.string,
   })).isRequired,
-  globalFilter: PropTypes.bool.isRequired,
+  globalFilterExists: PropTypes.bool.isRequired,
   isTable: PropTypes.bool.isRequired,
 };
 

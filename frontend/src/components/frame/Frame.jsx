@@ -233,7 +233,7 @@ Frame.propTypes = {
   // eslint-disable-next-line react/require-default-props
   onThick: PropTypes.func,
   // eslint-disable-next-line react/require-default-props
-  thicnessMenu: PropTypes.func,
+  thicnessMenu: PropTypes.node,
   // eslint-disable-next-line react/require-default-props
   onSearchCancel: PropTypes.func,
   // eslint-disable-next-line react/require-default-props

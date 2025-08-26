@@ -563,10 +563,8 @@ a.nav-link.active {
     overflow: initial !important;
 }
 
-
 .nodeLabel, .edgeLabel {
     cursor: pointer;
-    background-color: unset !important; /* removes .bg-primary */
 }
 
 .colorSelector {

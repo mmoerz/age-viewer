@@ -21,12 +21,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { Badge } from 'react-bootstrap';
 import uuid from 'react-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
+import LegendBadge from '../components/LegendBadge';
 import styles from './CypherResultCytoscape.module.scss';
+
+function callOnLabelClick(nextProps, type, label, legend) {
+  nextProps.onLabelClick({
+    type: 'labels',
+    data: {
+      type,
+      backgroundColor: legend.color,
+      fontColor: legend.fontColor,
+      size: legend.size,
+      label,
+    },
+  });
+}
 
 class CypherResultCytoscapeLegend extends Component {
   constructor(props) {
@@ -38,9 +51,6 @@ class CypherResultCytoscapeLegend extends Component {
       edgeLegendExpanded: false,
       legendData: props.legendData,
     };
-  }
-
-  componentDidMount() {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -67,39 +77,21 @@ class CypherResultCytoscapeLegend extends Component {
         }
 
         if (isChanged) {
-          nextProps.onLabelClick({
-            type: 'labels',
-            data: {
-              type: 'node',
-              backgroundColor: legend.color,
-              fontColor: legend.fontColor,
-              size: legend.size,
-              label,
-            },
-          });
+          callOnLabelClick(nextProps, 'node', label, legend);
         }
       }
 
       newNodeBadges.set(
         label,
-        <Badge
-          className="nodeLabel px-3 py-2 mx-1 my-2"
-          pill
+        <LegendBadge
+          className="nodeLabel"
           key={uuid()}
-          onClick={() => nextProps.onLabelClick({
-            type: 'labels',
-            data: {
-              type: 'node',
-              backgroundColor: legend.color,
-              fontColor: legend.fontColor,
-              size: legend.size,
-              label,
-            },
-          })}
-          style={{ backgroundColor: legend.color, color: legend.fontColor }}
+          onClick={() => callOnLabelClick(nextProps, 'node', label, legend)}
+          backgroundColor={legend.color}
+          color={legend.fontColor}
         >
           {label}
-        </Badge>,
+        </LegendBadge>,
       );
     }
 
@@ -119,37 +111,20 @@ class CypherResultCytoscapeLegend extends Component {
         }
 
         if (isChanged) {
-          nextProps.onLabelClick({
-            type: 'labels',
-            data: {
-              type: 'edge',
-              backgroundColor: legend.color,
-              fontColor: legend.fontColor,
-              size: legend.size,
-              label,
-            },
-          });
+          callOnLabelClick(nextProps, 'edge', label, legend);
         }
       }
       newEdgeBadges.set(
         label,
-        <Badge
-          className="edgeLabel px-3 py-2 mx-1 my-2"
+        <LegendBadge
+          className="edgeLabel"
           key={uuid()}
-          onClick={() => nextProps.onLabelClick({
-            type: 'labels',
-            data: {
-              type: 'edge',
-              backgroundColor: legend.color,
-              fontColor: legend.fontColor,
-              size: legend.size,
-              label,
-            },
-          })}
-          style={{ backgroundColor: legend.color, color: legend.fontColor }}
+          onClick={() => callOnLabelClick(nextProps, 'edge', label, legend)}
+          backgroundColor={legend.color}
+          color={legend.fontColor}
         >
           {label}
-        </Badge>,
+        </LegendBadge>,
       );
     }
 
@@ -225,6 +200,8 @@ CypherResultCytoscapeLegend.propTypes = {
     edgeLegend: PropTypes.any,
   }).isRequired,
   isReloading: PropTypes.bool.isRequired,
+  // onLabelClick is used in getDerivedStateFromProps (and LegendBadge)
+  // eslint-disable-next-line react/no-unused-prop-types
   onLabelClick: PropTypes.func.isRequired,
 };
 

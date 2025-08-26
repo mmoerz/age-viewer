@@ -43,11 +43,11 @@ function CypherResultFrame({
   const [thicknessModalVisible, setThicknessModalVisible] = useState(false);
 
   const [filterProperties, setFilterProperties] = useState([]);
-  const [filterTable, setFilterTable] = useState(null);
+  const [filterTable, setFilterTable] = useState([]);
   const [edgeProperties, setEdgeProperties] = useState([]);
   const [addFilter, setAddFilter] = useState(null);
   const [removeFilter, setRemoveFilter] = useState(null);
-  const [globalFilter, setGlobalFilter] = useState(null);
+  const [globalFilter, setGlobalFilter] = useState([]);
   const [globalThickness, setGlobalThickness] = useState(null);
 
   const [chartLegend, setChartLegend] = useState({ edgeLegend: {}, nodeLegend: {} });
@@ -107,7 +107,7 @@ function CypherResultFrame({
           filterItem.keyword !== removeFilter.keyword
         ));
         if (newFilterList.length > 0) setGlobalFilter(newFilterList);
-        else setGlobalFilter(null);
+        else setGlobalFilter([]);
       }
     }
   }, [removeFilter]);
@@ -195,7 +195,7 @@ function CypherResultFrame({
             />
           )
         }
-        onSearchCancel={() => setGlobalFilter(null)}
+        onSearchCancel={() => setGlobalFilter([])}
         onRefresh={refreshFrame}
         onDownload={(type) => {
           if (type === 'csv') {
@@ -259,7 +259,7 @@ function CypherResultFrame({
         visible={filterModalVisible}
         setVisible={setFilterModalVisible}
         properties={filterProperties}
-        globalFilter={globalFilter}
+        globalFilterExists={globalFilter.length > 0}
         isTable={isTable}
       />
     </>

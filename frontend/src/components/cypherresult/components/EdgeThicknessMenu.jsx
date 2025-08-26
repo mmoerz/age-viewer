@@ -85,7 +85,6 @@ function EdgeThicknessSettingModal({
       <p className={style.title}>Apply Edge Weight</p>
       <select
         className={`${standardEdge === '' ? style.default : style.select}`}
-        defaultValue={null}
         value={standardEdge}
         onChange={(e) => setStdEdge(e.target.value)}
         style={{ width: '95%' }}
@@ -95,7 +94,6 @@ function EdgeThicknessSettingModal({
       </select>
       <select
         className={`${standardProperty === '' ? style.default : style.select}`}
-        defaultValue={null}
         value={standardProperty}
         onChange={(e) => setStdProperty(e.target.value)}
         style={{ width: '95%' }}
