@@ -97,27 +97,28 @@ const DatabaseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(connectToDatabase.fulfilled, (state, action) => {
-        Object.assign(state, {
-          ...action.payload,
-          status: 'connected',
-        });
-      })
-      .addCase(connectToDatabase.rejected, (state) => {
-        Object.assign(state, { ...initialState, status: 'disconnected' });
-      })
-      .addCase(disconnectToDatabase.fulfilled, (state) => {
-        Object.assign(state, { ...initialState, status: 'disconnected' });
-      })
-      .addCase(getConnectionStatus.fulfilled, (state, action) => {
-        Object.assign(state, {
-          ...action.payload,
-          status: 'connected',
-        });
-      })
-      .addCase(getConnectionStatus.rejected, (state) => {
-        Object.assign(state, { ...initialState, status: 'disconnected' });
-      });
+      .addCase(connectToDatabase.fulfilled, (state, action) => ({
+        ...state,
+        ...action.payload,
+        status: 'connected',
+      }))
+      .addCase(connectToDatabase.rejected, () => ({
+        ...initialState,
+        status: 'disconnected',
+      }))
+      .addCase(disconnectToDatabase.fulfilled, () => ({
+        ...initialState,
+        status: 'disconnected',
+      }))
+      .addCase(getConnectionStatus.fulfilled, (state, action) => ({
+        ...state,
+        ...action.payload,
+        status: 'connected',
+      }))
+      .addCase(getConnectionStatus.rejected, () => ({
+        ...initialState,
+        status: 'disconnected',
+      }));
   },
 });
 

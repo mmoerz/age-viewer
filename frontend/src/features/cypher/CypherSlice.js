@@ -112,36 +112,37 @@ const CypherSlice = createSlice({
     },
     removeActiveRequests: (state, action) => removeActive(state, action.payload),
   },
-  extraReducers: {
-    [executeCypherQuery.fulfilled]: (state, action) => {
-      Object.assign(state.queryResult[action.payload.key], {
-        ...action.payload,
-        complete: true,
+  extraReducers: (builder) => {
+    builder
+      .addCase(executeCypherQuery.fulfilled, (state, action) => {
+        Object.assign(state.queryResult[action.payload.key], {
+          ...action.payload,
+          complete: true,
+        });
+        removeActive(state, action.payload.key);
+      })
+      .addCase(executeCypherQuery.pending, (state, action) => {
+        const key = action.meta.arg[0];
+        const command = action.meta.arg[1];
+        const rid = action.meta.requestId;
+        state.queryResult[key] = {};
+        state.activeRequests = [...state.activeRequests, key];
+        Object.assign(state.queryResult[key], {
+          command,
+          complete: false,
+          requestId: rid,
+        });
+      })
+      .addCase(executeCypherQuery.rejected, (state, action) => {
+        removeActive(state, action.meta.arg[0]);
+        state.queryResult[action.meta.arg[0]] = {
+          command: 'ERROR',
+          query: action.meta.arg[1],
+          key: action.meta.arg[0],
+          complete: true,
+          message: action.error.message,
+        };
       });
-      removeActive(state, action.payload.key);
-    },
-    [executeCypherQuery.pending]: (state, action) => {
-      const key = action.meta.arg[0];
-      const command = action.meta.arg[1];
-      const rid = action.meta.requestId;
-      state.queryResult[key] = {};
-      state.activeRequests = [...state.activeRequests, key];
-      Object.assign(state.queryResult[key], {
-        command,
-        complete: false,
-        requestId: rid,
-      });
-    },
-    [executeCypherQuery.rejected]: (state, action) => {
-      removeActive(state, action.meta.arg[0]);
-      state.queryResult[action.meta.arg[0]] = {
-        command: 'ERROR',
-        query: action.meta.arg[1],
-        key: action.meta.arg[0],
-        complete: true,
-        message: action.error.message,
-      };
-    },
   },
 });
 

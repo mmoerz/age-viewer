@@ -117,7 +117,7 @@ function ServerStatusFrame({
                 :server connect
               </a>
               {' '}
-              to access to Database.
+              to access a database.
             </p>
           </Col>
         </Row>
@@ -142,7 +142,7 @@ ServerStatusFrame.propTypes = {
   reqString: PropTypes.string.isRequired,
   serverInfo: PropTypes.shape({
     host: PropTypes.string,
-    port: PropTypes.string,
+    port: PropTypes.number,
     user: PropTypes.string,
     database: PropTypes.string,
     graph: PropTypes.string,
