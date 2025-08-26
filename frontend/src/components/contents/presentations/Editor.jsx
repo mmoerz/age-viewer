@@ -30,7 +30,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import store from '../../../app/store';
 import AlertContainers from '../../alert/containers/AlertContainers';
-// import CodeMirrorWrapper from '../../editor/containers/CodeMirrorWrapperContainer';
+import CodeMirrorWrapper from '../../editor/containers/CodeMirrorWrapperContainer';
 import SideBarToggle from '../../editor/containers/SideBarMenuToggleContainer';
 import { setting } from '../../../conf/config';
 import IconPlay from '../../../icons/IconPlay';
@@ -151,11 +151,11 @@ function Editor({
           <div className="input-group input-style">
 
             <div id="codeMirrorEditor" className="form-control col-11 editor-code-wrapper">
-              {/* <CodeMirrorWrapper
+              <CodeMirrorWrapper
                 onClick={onClick}
                 value={command}
                 onChange={setCommand}
-              /> */}
+              />
             </div>
             <div className="input-group-append ml-auto editor-button-wrapper" id="editor-buttons">
               {/* <button className="frame-head-button btn btn-link"

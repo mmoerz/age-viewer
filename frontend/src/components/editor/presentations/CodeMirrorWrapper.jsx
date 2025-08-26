@@ -23,7 +23,9 @@ import {
   EditorView,
   keymap,
 } from '@codemirror/view';
-import { oneDark } from '@codemirror/theme-one-dark';
+// import { oneDark } from '@codemirror/theme-one-dark';
+// import { kimbie } from '@uiw/codemirror-theme-kimbie';
+import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 // import '@codemirror/autocomplete';
 // import { LanguageSupport } from '@neo4j-cypher/react-codemirror'; // Example, adjust as needed
 // cypher support seams to be broken with neo4j-cypher 0.4.6, so using basic sql support for now
@@ -33,7 +35,7 @@ import './CodeMirror.scss';
 import PropTypes from 'prop-types';
 
 function CodeMirrorWrapper({
-  value, onChange, commandHistory, onClick,
+  value, onChange, commandHistory, onClick = undefined,
 }) {
   const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
   const codeMirrorRef = useRef();
@@ -106,7 +108,7 @@ function CodeMirrorWrapper({
       ref={codeMirrorRef}
       value={value}
       height="auto"
-      theme={oneDark}
+      theme={vscodeDark}
       extensions={[
         sql(),
         keymap.of(customKeymap),
@@ -149,11 +151,8 @@ CodeMirrorWrapper.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   commandHistory: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // eslint-disable-next-line react/require-default-props
   onClick: PropTypes.func,
-};
-
-CodeMirrorWrapper.defaultProps = {
-  onClick: undefined,
 };
 
 export default CodeMirrorWrapper;
