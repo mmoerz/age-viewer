@@ -28,6 +28,7 @@ import CypherResultTableContainer from '../../cypherresult/containers/CypherResu
 import GraphFilterModal from '../../cypherresult/components/GraphFilterModal';
 import EdgeThicknessMenu from '../../cypherresult/components/EdgeThicknessMenu';
 import Frame from '../Frame';
+import styles from '../../cytoscape/presentations/CypherResultCytoscape.module.scss';
 
 function CypherResultFrame({
   queryComplete,
@@ -50,6 +51,7 @@ function CypherResultFrame({
   const [globalThickness, setGlobalThickness] = useState(null);
 
   const [chartLegend, setChartLegend] = useState({ edgeLegend: {}, nodeLegend: {} });
+  const [activeTab, setActiveTab] = useState('graph');
   const [isTable, setIsTable] = useState(false);
 
   useEffect(() => {
@@ -173,6 +175,10 @@ function CypherResultFrame({
     }
   };
 
+  const classNameForTab = (tabType) => (
+    tabType === activeTab ? styles['selected-frame-tab'] : styles['deselected-frame-tab']
+  );
+
   return (
     <>
       <Frame
@@ -209,7 +215,7 @@ function CypherResultFrame({
           queryComplete?.complete
             ? (
               <div className="d-flex h-100">
-                <div style={{ height: '100%', width: '100%' }} id={`${refKey}-graph`} className="selected-frame-tab">
+                <div style={{ height: '100%', width: '100%' }} id={`${refKey}-graph`} className={classNameForTab('graph')}>
                   <CypherResultCytoscapeContainer
                     key={cytoscapeContainerKey}
                     ref={chartAreaRef}
@@ -221,13 +227,17 @@ function CypherResultFrame({
                     onRemoveSubmit={(filters) => {
                       setRemoveFilter(filters);
                     }}
+                    // activeTab={activeTab}
+                    setActiveTab={setActiveTab}
                     setIsTable={setIsTable}
                   />
                 </div>
-                <div style={{ height: '100%', width: '100%' }} id={`${refKey}-table`} className="deselected-frame-tab">
+                <div style={{ height: '100%', width: '100%' }} id={`${refKey}-table`} className={classNameForTab('table')}>
                   <CypherResultTableContainer
                     refKey={refKey}
                     filterTable={filterTable}
+                    // activeTab={activeTab}
+                    setActiveTab={setActiveTab}
                     setIsTable={setIsTable}
                   />
                 </div>

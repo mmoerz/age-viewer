@@ -19,10 +19,14 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import { Badge } from 'react-bootstrap';
 import uuid from 'react-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+
+import styles from './CypherResultCytoscape.module.scss';
 
 class CypherResultCytoscapeLegend extends Component {
   constructor(props) {
@@ -175,7 +179,7 @@ class CypherResultCytoscapeLegend extends Component {
     edgeBadges.forEach((value) => edgeLedgend.push(value));
 
     return (
-      <div className="legend-area col-md-10 p-0">
+      <div className={classNames(styles['legend-area'], 'col-md-10', 'p-0')}>
         <div className="d-flex nodeLegend">
           <div className={`mr-auto legends legend ${nodeLegendExpanded ? 'expandedLegend' : ''}`}>
             <span>Node: </span>

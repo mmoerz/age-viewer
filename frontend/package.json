@@ -32,6 +32,7 @@
     "ascii-table": "0.0.9",
     "axios": "^0.21.1",
     "bootstrap": "^5.3.7",
+    "classnames": "^2.5.1",
     "codemirror": "^6.0.2",
     "cytoscape": "^3.33.1",
     "cytoscape-avsdf": "^1.0.0",
@@ -104,6 +105,7 @@
     "jest": "^27.5.1",
     "prettier": "^3.6.2",
     "sass": "^1.91.0",
+    "sass-loader": "^13.3.3",
     "webpack-dev-server": "^5.2.2"
   }
 }

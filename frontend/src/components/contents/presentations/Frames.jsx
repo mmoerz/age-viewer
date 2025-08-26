@@ -33,7 +33,7 @@ function Frames({
   database,
   frameList,
   addFrame,
-  queryResult,
+  queryResult = {},
   maxNumOfFrames,
 }) {
   const dispatch = useDispatch();
@@ -145,10 +145,6 @@ function Frames({
   );
 }
 
-Frames.defaultProps = {
-  queryResult: {},
-};
-
 Frames.propTypes = {
   database: PropTypes.shape({
     status: PropTypes.string.isRequired,
@@ -167,7 +163,7 @@ Frames.propTypes = {
   ).isRequired,
   addFrame: PropTypes.func.isRequired,
   // todo: need to refactoring on management Cypher Results
-  // eslint-disable-next-line react/forbid-prop-types
+  // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
   queryResult: PropTypes.any,
   maxNumOfFrames: PropTypes.number.isRequired,
 };

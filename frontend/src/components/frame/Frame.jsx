@@ -43,13 +43,13 @@ function Frame({
   reqString,
   children,
   refKey,
-  onSearch,
-  onSearchCancel,
-  onRefresh,
-  onThick,
-  thicnessMenu,
-  bodyNoPadding,
-  isTable,
+  onSearch = null,
+  onSearchCancel = null,
+  onRefresh = null,
+  onThick = null,
+  thicnessMenu = null,
+  bodyNoPadding = false,
+  isTable = undefined,
 }) {
   const dispatch = useDispatch();
   const [isFullScreen, setFullScreen] = useState(false);
@@ -224,26 +224,23 @@ function Frame({
   );
 }
 
-Frame.defaultProps = {
-  onSearch: null,
-  onThick: null,
-  onSearchCancel: null,
-  thicnessMenu: null,
-  onRefresh: null,
-  bodyNoPadding: false,
-  isTable: undefined,
-};
-
 Frame.propTypes = {
   reqString: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired, // allows multiple elements
   refKey: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   onSearch: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
   onThick: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
   thicnessMenu: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
   onSearchCancel: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
   onRefresh: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
   bodyNoPadding: PropTypes.bool,
+  // eslint-disable-next-line react/require-default-props
   isTable: PropTypes.bool,
 };
 

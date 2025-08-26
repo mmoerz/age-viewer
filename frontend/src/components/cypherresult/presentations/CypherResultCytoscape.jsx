@@ -25,10 +25,10 @@ import { useDispatch } from 'react-redux';
 import {
   edgeLabelColors, edgeLabelSizes, nodeLabelColors, nodeLabelSizes,
 } from '../../../features/cypher/CypherUtil';
-import CypherResultCytoscapeChart from '../../cytoscape/CypherResultCytoscapeChart';
-import CypherResultCytoscapeLegend from '../../cytoscape/presentation/CypherResultCytoscapeLegend';
+import CypherResultCytoscapeChart from '../../cytoscape/presentations/CypherResultCytoscapeChart';
+import CypherResultCytoscapeLegend from '../../cytoscape/presentations/CypherResultCytoscapeLegend';
 import CypherResultCytoscapeFooter from '../../cytoscape/CypherResultCytoscapeFooter';
-import CypherResultTab from '../../cytoscape/CypherResultTab';
+import CypherResultTab from '../../cytoscape/presentations/CypherResultTab';
 
 const CypherResultCytoscape = forwardRef((props, ref) => {
   const cytoRef = useRef(null); // <-- ref to store Cytoscape instance
@@ -374,7 +374,14 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
           isReloading={isReloading}
           legendData={legendData}
         />
-        <CypherResultTab refKey={props.refKey} setIsTable={props.setIsTable} cytoRef={cytoRef} currentTab="graph" />
+        <CypherResultTab
+          refKey={props.refKey}
+          setIsTable={props.setIsTable}
+          cytoRef={cytoRef}
+          // activeTab={props.activeTab}
+          setActiveTab={props.setActiveTab}
+          tabType="graph"
+        />
       </div>
       <CypherResultCytoscapeChart
         onElementsMouseover={getFooterData}
@@ -436,6 +443,8 @@ CypherResultCytoscape.propTypes = {
   openModal: PropTypes.func.isRequired,
   addGraphHistory: PropTypes.func.isRequired,
   addElementHistory: PropTypes.func.isRequired,
+  setActiveTab: PropTypes.func.isRequired,
+  // activeTab: PropTypes.string.isRequired,
   setIsTable: PropTypes.func.isRequired,
 };
 

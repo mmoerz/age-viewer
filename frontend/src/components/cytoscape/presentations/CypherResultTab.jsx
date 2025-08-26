@@ -20,17 +20,22 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTable, faDownload } from '@fortawesome/free-solid-svg-icons';
-import cytoscape from 'cytoscape';
-import IconGraph from '../../icons/IconGraph';
+import IconGraph from '../../../icons/IconGraph';
+
+import styles from './CypherResultCytoscape.module.scss';
+import cytoscapeInstanceProp from '../utils/cytoscapeInstanceProp';
 
 class CypherResultTab extends Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.refKey = props.refKey;
-    this.currentTab = props.currentTab;
+    this.tabType = props.tabType;
+    this.setActiveTab = props.setActiveTab;
+    // this.activeTab = props.activeTab;
     this.cytoRef = props.cytoRef;
     this.setIsTable = props.setIsTable;
   }
@@ -53,28 +58,18 @@ class CypherResultTab extends Component {
   }
 
   render() {
-    const activeTab = (refKey, tabType) => {
-      if (tabType === 'graph') {
-        document.getElementById(`${refKey}-${tabType}`).classList.add('selected-frame-tab');
-        document.getElementById(`${refKey}-${tabType}`).classList.remove('deselected-frame-tab');
-        document.getElementById(`${refKey}-table`).classList.add('deselected-frame-tab');
-        document.getElementById(`${refKey}-table`).classList.remove('selected-frame-tab');
-      } else if (tabType === 'table') {
-        document.getElementById(`${refKey}-${tabType}`).classList.add('selected-frame-tab');
-        document.getElementById(`${refKey}-${tabType}`).classList.remove('deselected-frame-tab');
-        document.getElementById(`${refKey}-graph`).classList.add('deselected-frame-tab');
-        document.getElementById(`${refKey}-graph`).classList.remove('selected-frame-tab');
-      }
-    };
     return (
-      <div className="legend-button-area col-md-2 p-0">
+      <div className={classNames(styles['btn-area'], 'col-md-2', 'p-0')}>
         {/* First row: Graph + Table */}
         {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}> */}
-        <div className="legend-button-area-column col-md-6 p-0" id={`${this.refKey}-graph1`}>
+        <div className={classNames(styles['btn-area-column'], 'col-md-6', 'p-0')} id={`${this.refKey}-graph1`}>
           <button
-            className={`legend-button-area-btn ${this.currentTab === 'graph' ? 'active' : ''}`}
+            className={classNames(
+              styles['btn-area-btn'],
+              this.tabType === 'graph' ? styles['btn-area-btn.active'] : '',
+            )}
             type="button"
-            onClick={() => { activeTab(this.refKey, 'graph'); this.setIsTable(false); }}
+            onClick={() => { this.setActiveTab('graph'); this.setIsTable(false); }}
           >
             <IconGraph />
             <br />
@@ -82,7 +77,7 @@ class CypherResultTab extends Component {
           </button>
 
           <button
-            className="legend-button-area-btn"
+            className={styles['btn-area-btn']}
             type="button"
             onClick={() => {
               if (typeof this.handleExportSvg !== 'undefined') {
@@ -97,14 +92,17 @@ class CypherResultTab extends Component {
         </div>
 
         {/* Divider */}
-        <div className="legend-button-area-divider" />
+        <div className={styles['btn-area-divider']} />
 
         {/* Table button */}
-        <div className="legend-button-area-column col-md-6 p-0" id={`${this.refKey}-graph2`}>
+        <div className={classNames(styles['btn-area-column'], 'col-md-6', 'p-0')} id={`${this.refKey}-graph2`}>
           <button
-            className={`legend-button-area-btn ${this.currentTab === 'table' ? 'active' : ''}`}
+            className={classNames(
+              styles['btn-area-btn'],
+              this.tabType === 'table' ? styles['btn-area-btn.active'] : '',
+            )}
             type="button"
-            onClick={() => { activeTab(this.refKey, 'table'); this.setIsTable(true); }}
+            onClick={() => { this.setActiveTab('table'); this.setIsTable(true); }}
           >
             <FontAwesomeIcon icon={faTable} style={{ fontSize: '25px' }} />
             <br />
@@ -119,8 +117,10 @@ class CypherResultTab extends Component {
 
 CypherResultTab.propTypes = {
   refKey: PropTypes.string.isRequired,
-  currentTab: PropTypes.string.isRequired,
-  cytoRef: PropTypes.shape({ current: PropTypes.instanceOf(cytoscape.Core) }).isRequired,
+  tabType: PropTypes.string.isRequired,
+  // activeTab: PropTypes.string.isRequired,
+  setActiveTab: PropTypes.func.isRequired,
+  cytoRef: cytoscapeInstanceProp.isRequired,
   setIsTable: PropTypes.func.isRequired,
 };
 

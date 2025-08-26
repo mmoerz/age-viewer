@@ -19,11 +19,13 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
 import { Table } from 'antd';
 // import { uuid } from 'cytoscape/src/util';
 import { v4 as uuid } from 'uuid';
 // import { uuid } from 'react-uuid';
-import CypherResultTab from '../../cytoscape/CypherResultTab';
+import CypherResultTab from '../../cytoscape/presentations/CypherResultTab';
+import styles from '../../cytoscape/presentations/CypherResultCytoscape.module.scss';
 
 function CypherResultTable({ data, ...props }) {
   const [localColumns, setLocalColumns] = useState([]);
@@ -104,11 +106,10 @@ function CypherResultTable({ data, ...props }) {
     return <div style={{ margin: '25px' }}><span style={{ whiteSpace: 'pre-line' }}>Query not entered!</span></div>;
   }
 
-  const { refKey, setIsTable } = props;
   return (
     <div className="chart-frame-area">
-      <div className="container-frame-tab">
-        <div className="legend-area col-md-10 p-0">
+      <div className="legend-frame-tab d-flex align-items-start">
+        <div className={classNames(styles['legend-area'], 'col-md-10', 'p-0')}>
           <div className="d-flex nodeLegend">
             <div className="mr-auto legends legend">Node:</div>
           </div>
@@ -116,7 +117,14 @@ function CypherResultTable({ data, ...props }) {
             <div className="mr-auto legends legend">Edge:</div>
           </div>
         </div>
-        <CypherResultTab refKey={refKey} setIsTable={setIsTable} cytoRef={undefined} currentTab="table" />
+        <CypherResultTab
+          refKey={props.refKey}
+          tabType="graph"
+          setIsTable={props.setIsTable}
+          cytoRef={undefined}
+          setActiveTab={props.setActiveTab}
+          // activeTab={props.activeTab}
+        />
       </div>
       <Table columns={localColumns} dataSource={localRows} />
     </div>
@@ -135,6 +143,8 @@ CypherResultTable.propTypes = {
     statusText: PropTypes.string,
   }).isRequired,
   refKey: PropTypes.string.isRequired,
+  setActiveTab: PropTypes.func.isRequired,
+  // activeTab: PropTypes.string.isRequired,
   setIsTable: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   filterTable: PropTypes.any.isRequired,

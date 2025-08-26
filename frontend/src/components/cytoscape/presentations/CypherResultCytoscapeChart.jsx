@@ -49,12 +49,13 @@ import {
   faThumbtack,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { initLocation, selectableLayouts } from './CytoscapeLayouts';
-import { stylesheet } from './CytoscapeStyleSheet';
-import { generateCytoscapeElement } from '../../features/cypher/CypherUtil';
-import IconFilter from '../../icons/IconFilter';
-import IconSearchCancel from '../../icons/IconSearchCancel';
-import styles from '../frame/Frame.module.scss';
+import { initLocation, selectableLayouts } from '../CytoscapeLayouts';
+import { stylesheet } from '../CytoscapeStyleSheet';
+import { generateCytoscapeElement } from '../../../features/cypher/CypherUtil';
+import IconFilter from '../../../icons/IconFilter';
+import IconSearchCancel from '../../../icons/IconSearchCancel';
+import styles from '../../frame/Frame.module.scss';
+import cytoscapeInstanceProp from '../utils/cytoscapeInstanceProp';
 
 // cytoscape initialization
 cytoscape.use(COSEBilkent);
@@ -530,7 +531,7 @@ CypherResultCytoscapeCharts.propTypes = {
       }),
     ),
   }).isRequired,
-  cytoRef: PropTypes.shape({ current: PropTypes.instanceOf(cytoscape.Core) }).isRequired,
+  cytoRef: cytoscapeInstanceProp.isRequired,
   cytoscapeLayout: PropTypes.string.isRequired,
   maxDataOfGraph: PropTypes.number.isRequired,
   onElementsMouseover: PropTypes.func.isRequired,

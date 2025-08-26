@@ -566,6 +566,7 @@ a.nav-link.active {
 
 .nodeLabel, .edgeLabel {
     cursor: pointer;
+    background-color: unset !important; /* removes .bg-primary */
 }
 
 .colorSelector {
