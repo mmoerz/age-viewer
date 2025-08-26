@@ -1,0 +1,53 @@
+/* ---------------------------------------------------
+    FRAME TAB STYLE CONTROLL
+----------------------------------------------------- */
+.selected-frame-tab {
+    display: '';
+}
+
+.deselected-frame-tab {
+    display: none;
+}
+
+.legend-frame-tab {
+    display: flex;
+    flex-direction: row;
+}
+
+.legend-button-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 96px;
+    border: solid 0 #C4C4C4;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    background-color: rgba(0, 0, 0, .03); ;
+}
+
+.legend-button-area-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.legend-button-area-divider {
+    border-left: solid 1px #C4C4C4;
+    height: 60%;
+    margin-top: 20px;
+}
+
+.legend-button-area-btn {
+    width: 100%;
+    font-size: 11px;
+    margin-top: 3px;
+    color: #495057; /* Inactive tab color */
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0, 0, 0, 0); ; /* button background itself is transparent */
+}
+
+.legend-button-area-btn.active {
+  color: #142B80; /* Active tab color */
+}

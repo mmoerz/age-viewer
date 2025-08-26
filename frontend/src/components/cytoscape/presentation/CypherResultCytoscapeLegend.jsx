@@ -208,7 +208,6 @@ class CypherResultCytoscapeLegend extends Component {
             />
           </button>
         </div>
-
       </div>
     );
   }

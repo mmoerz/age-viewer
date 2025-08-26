@@ -20,18 +20,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import {
-  Row,
-  // Button
-} from 'react-bootstrap';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Row } from 'react-bootstrap';
 import EditorContainer from '../../contents/containers/Editor';
 import Sidebar from '../../sidebar/containers/Sidebar';
 import Contents from '../../contents/containers/Contents';
 import Modal from '../../modal/containers/Modal';
 import { loadFromCookie, saveToCookie } from '../../../features/cookie/CookieUtil';
-// import BuilderContainer from '../../query_builder/BuilderContainer';
 import './DefaultTemplate.scss';
 // import KeyWordFinder from '../../../features/query_builder/KeyWordFinder';
 
@@ -117,12 +111,6 @@ function DefaultTemplate({
         readOnly
       />
       <Row className="content-row">
-        <div>
-          {/* <Button onClick={() => setOpen(true)}>
-            <FontAwesomeIcon icon={faBars} />
-          </Button>
-          <BuilderContainer open={open} setOpen={setOpen} finder={finder} /> */}
-        </div>
         <div className="editor-division wrapper-extension-padding">
 
           <EditorContainer />
@@ -130,9 +118,7 @@ function DefaultTemplate({
           <Contents />
 
         </div>
-
       </Row>
-
     </div>
   );
 }

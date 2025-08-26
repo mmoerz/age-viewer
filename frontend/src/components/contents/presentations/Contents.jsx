@@ -43,9 +43,7 @@ function Contents({
 
   return (
     <div className={`${styles.Content} ${isActive ? styles.Expanded : ''}`}>
-      <div>
-        <FramesContainer />
-      </div>
+      <FramesContainer />
     </div>
   );
 }

@@ -26,7 +26,7 @@ import {
   edgeLabelColors, edgeLabelSizes, nodeLabelColors, nodeLabelSizes,
 } from '../../../features/cypher/CypherUtil';
 import CypherResultCytoscapeChart from '../../cytoscape/CypherResultCytoscapeChart';
-import CypherResultCytoscapeLegend from '../../cytoscape/CypherResultCytoscapeLegend';
+import CypherResultCytoscapeLegend from '../../cytoscape/presentation/CypherResultCytoscapeLegend';
 import CypherResultCytoscapeFooter from '../../cytoscape/CypherResultCytoscapeFooter';
 import CypherResultTab from '../../cytoscape/CypherResultTab';
 
@@ -368,7 +368,7 @@ const CypherResultCytoscape = forwardRef((props, ref) => {
 
   return (
     <div className="chart-frame-area">
-      <div className="container-frame-tab">
+      <div className="legend-frame-tab d-flex align-items-start">
         <CypherResultCytoscapeLegend
           onLabelClick={getFooterData}
           isReloading={isReloading}
