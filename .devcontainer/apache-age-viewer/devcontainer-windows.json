@@ -3,6 +3,7 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "apache-age-viewer",
   "workspaceFolder": "/src",
+  "context": "..",
   "customizations": {
     "vscode": {
       "settings": {
