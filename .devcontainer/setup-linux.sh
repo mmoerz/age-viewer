@@ -24,8 +24,12 @@ else
     exit 1
 fi
 
-rm -f docker-compose.yml
-rm -f apache-age-viewer/Dockerfile
+echo "Cleaning up potentially old symlinks"
+rm -f docker-compose.yml \
+      apache-age-viewer/Dockerfile \
+      apache-age-viewer/devcontainer.json
 
+echo "Creating symlinks for $machine"
 ln -s docker-compose-linux.yml docker-compose.yml
 ln -s apache-age-viewer/Dockerfile-linux apache-age-viewer/Dockerfile
+ln -s apache-age-viewer/devcontainer-linux.json apache-age-viewer/devcontainer.json

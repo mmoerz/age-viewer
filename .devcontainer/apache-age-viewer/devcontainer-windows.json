@@ -1,0 +1,21 @@
+{
+  "name": "Dev Apache Age Viewer",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "apache-age-viewer",
+  "workspaceFolder": "/src",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"     
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "xabikos.javascriptsnippets"
+      ]
+    }
+  },
+  "postCreateCommand": "npm --version && node --version ",
+  "remoteUser": "node"
+}

@@ -1,6 +1,6 @@
 {
   "name": "Dev Apache Age Viewer",
-  "dockerComposeFile": "docker-compose.yml",
+  "dockerComposeFile": "../docker-compose.yml",
   "service": "apache-age-viewer",
   "workspaceFolder": "/src",
   "customizations": {
