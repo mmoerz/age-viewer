@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/devcontainers/javascript-node:latest
 
-COPY setup.sh /src/setup.sh
+COPY .devcontainer/apache-age-viewer/setup.sh /src/setup.sh
 
 WORKDIR /src
 COPY . /src

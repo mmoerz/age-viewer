@@ -1,8 +1,6 @@
-version: "3.9"
 services:
   postgresql-age:
     image: "docker.io/apache/age:latest"
-    #user: "${UID}:${GID}"
     volumes:
       - psql_data:/var/lib/postgresql/data
     environment:
@@ -25,8 +23,10 @@ services:
   #   command: sleep infinity
 
   apache-age-viewer:
-    image: "mcr.microsoft.com/devcontainers/javascript-node:latest"
-    user: "${UID}:${GID}"
+    image: "apache-age-viewer:dev"
+    build:
+      context: ..
+      dockerfile: .devcontainer/apache-age-viewer/Dockerfile 
     volumes:
       - age_data:/src
     environment:

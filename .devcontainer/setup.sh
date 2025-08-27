@@ -23,3 +23,9 @@ else
     echo "Unsupported OS"
     exit 1
 fi
+
+rm -f docker-compose.yml
+rm -f apache-age-viewer/Dockerfile
+
+ln -s docker-compose-linux.yml docker-compose.yml
+ln -s apache-age-viewer/Dockerfile-linux apache-age-viewer/Dockerfile
