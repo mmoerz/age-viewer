@@ -27,7 +27,7 @@ import {
 } from '../../../features/cypher/CypherUtil';
 import CypherResultCytoscapeChart from '../../cytoscape/presentations/CypherResultCytoscapeChart';
 import CypherResultCytoscapeLegend from '../../cytoscape/presentations/CypherResultCytoscapeLegend';
-import CypherResultCytoscapeFooter from '../../cytoscape/CypherResultCytoscapeFooter';
+import CypherResultCytoscapeFooter from '../../cytoscape/presentations/CypherResultCytoscapeFooter';
 import CypherResultTab from '../../cytoscape/presentations/CypherResultTab';
 
 const CypherResultCytoscape = forwardRef((props, ref) => {

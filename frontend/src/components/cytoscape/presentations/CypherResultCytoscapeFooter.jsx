@@ -19,7 +19,6 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Badge } from 'react-bootstrap';
 import uuid from 'react-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
@@ -28,8 +27,9 @@ import {
   updateLabelCaption,
   updateLabelColor,
   updateNodeLabelSize,
-} from '../../features/cypher/CypherUtil';
-import CytoScapeLayoutSelect from './components/CytoScapeLayoutSelect';
+} from '../../../features/cypher/CypherUtil';
+import CytoScapeLayoutSelect from '../components/CytoScapeLayoutSelect';
+import LegendBadge from '../components/LegendBadge';
 
 function CypherResultCytoscapeFooter({
   footerData,
@@ -74,16 +74,14 @@ function CypherResultCytoscapeFooter({
       return (
         <div className="d-flex pl-3">
           <div className={`graphFrameFooter ${footerExpanded ? 'expandedGraphFrameFooter' : ''}`}>
-            <Badge
+            <LegendBadge
               className="px-3 py-1"
               pill={isEdge === false}
-              style={{
-                backgroundColor: footerData.data.backgroundColor,
-                color: footerData.data.fontColor,
-              }}
+              backgroundColor={footerData.data.backgroundColor}
+              color={footerData.data.fontColor}
             >
               {footerData.data.label}
-            </Badge>
+            </LegendBadge>
             <span className="label">
               <strong className="pl-3">&lt;gid&gt; : </strong>
               {' '}
@@ -105,35 +103,13 @@ function CypherResultCytoscapeFooter({
             cytoscapeLayoutName={cytoscapeLayout}
             setCytoscapeLayoutByName={setCytoscapeLayout}
           />
-          {/*
-          Layout :&nbsp;
-          <select
-            id="selectLayout"
-            className="col-2 custom-select custom-select-sm layout-select"
-            defaultValue={cytoscapeLayout}
-            onChange={(e) => [setCytoscapeLayout(e.target.value)]}
-          >
-            <option value="random">Random</option>
-            <option value="grid">Grid</option>
-            <option value="breadthFirst">Breadth-First</option>
-            <option value="concentric">Concentric</option>
-            <option value="cola">Cola</option>
-            <option value="cose">Cose</option>
-            <option value="coseBilkent">Cose-Bilkent</option>
-            <option value="dagre">Dagre</option>
-            <option value="klay">Klay</option>
-            <option value="euler">Euler</option>
-            <option value="avsdf">Avsdf</option>
-            <option value="spread">Spread</option>
-          </select>
-          */}
         </div>
       );
     }
     if (footerData.type === 'background') {
       return (
         <div className="d-flex pl-3">
-          <div className="mr-auto label pl-3">
+          <div className="mr-auto label pl-3 graphFrameFooter">
             Displaying&nbsp;
             <strong>{footerData.data.nodeCount}</strong>
             &nbsp;
@@ -235,25 +211,23 @@ function CypherResultCytoscapeFooter({
       return (
         <div className="d-flex pl-3">
           <div className={`graphFrameFooter ${footerExpanded ? 'expandedGraphFrameFooter' : ''}`}>
-            <Badge
+            <LegendBadge
               className="px-3 py-1"
               pill={isEdge === false}
-              style={{
-                backgroundColor: footerData.data.backgroundColor,
-                color: footerData.data.fontColor,
-              }}
+              backgroundColor={footerData.data.backgroundColor}
+              color={footerData.data.fontColor}
             >
               {footerData.data.label}
-            </Badge>
-            <span className="label">
+            </LegendBadge>
+            <span className="label mx-2">
               <span className="pl-3">Color : </span>
               {generateColors()}
             </span>
-            <span className="label">
+            <span className="label mx-2">
               <span className="pl-3">Size : </span>
               {generateButton()}
             </span>
-            <span className="label">
+            <span className="label mx-2">
               <span className="pl-3">Caption : </span>
               {captions.map((caption) => (
                 <button
@@ -304,34 +278,14 @@ function CypherResultCytoscapeFooter({
       );
     }
     return (
-      <CytoScapeLayoutSelect
-        cytoscapeLayoutName={cytoscapeLayout}
-        setCytoscapeLayoutByName={setCytoscapeLayout}
-      />
+      <div className="d-flex pl-3">
+        <div className="mr-auto label pl-3 graphFrameFooter" />
+        <CytoScapeLayoutSelect
+          cytoscapeLayoutName={cytoscapeLayout}
+          setCytoscapeLayoutByName={setCytoscapeLayout}
+        />
+      </div>
     );
-    // <div className="d-flex pl-3">
-    //   <div className="mr-auto label pl-3" />
-    //   <div className="px-1">Layout : </div>
-    //   <select
-    //     id="selectLayout"
-    //     className="col-2 custom-select custom-select-sm layout-select"
-    //     defaultValue={cytoscapeLayout}
-    //     onChange={(e) => [setCytoscapeLayout(e.target.value)]}
-    //   >
-    //     <option value="random">Random</option>
-    //     <option value="grid">Grid</option>
-    //     <option value="breadthFirst">Breadth-First</option>
-    //     <option value="concentric">Concentric</option>
-    //     <option value="cola">Cola</option>
-    //     <option value="cose">Cose</option>
-    //     <option value="coseBilkent">Cose-Bilkent</option>
-    //     <option value="dagre">Dagre</option>
-    //     <option value="klay">Klay</option>
-    //     <option value="euler">Euler</option>
-    //     <option value="avsdf">Avsdf</option>
-    //     <option value="spread">Spread</option>
-    //   </select>
-    // </div>
   };
 
   return (
