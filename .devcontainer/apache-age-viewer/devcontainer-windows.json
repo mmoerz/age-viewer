@@ -17,6 +17,6 @@
       ]
     }
   },
-  "postCreateCommand": "npm --version && node --version ",
+  "postCreateCommand": "/src/.devcontainer/apache-age-viewer/setup.sh",
   "remoteUser": "node"
 }

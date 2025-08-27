@@ -1,16 +1,12 @@
 FROM mcr.microsoft.com/devcontainers/javascript-node:latest
 
-USER root
-RUN chown node:node /src
-
-USER node
-COPY .devcontainer/apache-age-viewer/setup.sh /src/setup.sh
+VOLUME /src
 
 WORKDIR /src
 COPY . /src
 
-RUN chmod +x /src/setup.sh
-# && /src/setup.sh
+RUN chown -R node:node /src && chmod 770 /src &&\
+    chmod u+x /src/.devcontainer/apache-age-viewer/setup.sh
 
 CMD ["sleep", "infinity"]
 
