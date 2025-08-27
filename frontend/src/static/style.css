@@ -501,8 +501,8 @@ a.nav-link.active {
 
 .chart-footer-area {
     vertical-align: middle;
-    line-height: 37px;
-    min-height: 37px;
+    line-height: 38px;
+    min-height: 38px;
     width: 100%;
     background-color: rgba(0,0,0,.03);
     border-top: 1px solid rgba(0,0,0,.125);
@@ -510,7 +510,7 @@ a.nav-link.active {
 
 .chart-footer-area .graphFrameFooter {
     flex: 1;
-    height: 37px;
+    height: 38px;
     overflow: hidden;
 }
 

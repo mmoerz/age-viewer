@@ -11,16 +11,18 @@ function CytoScapeLayoutSelect({
       <div className="layout-select-label mr-2">
         Layout :
       </div>
-      <select
-        id="selectLayout"
-        className="col-8 custom-select custom-select-sm layout-select"
-        defaultValue={cytoscapeLayoutName}
-        onChange={(e) => setCytoscapeLayoutByName(e.target.value)}
-      >
-        {Object.keys(selectableLayouts).map((name) => (
-          <option key={name} value={name}>{selectableLayouts[name].label}</option>
-        ))}
-      </select>
+      <div className="col-8 px-2">
+        <select
+          id="selectLayout"
+          className="form-select-sm"
+          defaultValue={cytoscapeLayoutName}
+          onChange={(e) => setCytoscapeLayoutByName(e.target.value)}
+        >
+          {Object.keys(selectableLayouts).map((name) => (
+            <option key={name} value={name}>{selectableLayouts[name].label}</option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }
