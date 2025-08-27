@@ -29,6 +29,7 @@ import {
   updateLabelColor,
   updateNodeLabelSize,
 } from '../../features/cypher/CypherUtil';
+import CytoScapeLayoutSelect from './components/CytoScapeLayoutSelect';
 
 function CypherResultCytoscapeFooter({
   footerData,
@@ -100,6 +101,11 @@ function CypherResultCytoscapeFooter({
               icon={footerExpanded ? faAngleUp : faAngleDown}
             />
           </button>
+          <CytoScapeLayoutSelect
+            cytoscapeLayoutName={cytoscapeLayout}
+            setCytoscapeLayoutByName={setCytoscapeLayout}
+          />
+          {/*
           Layout :&nbsp;
           <select
             id="selectLayout"
@@ -120,6 +126,7 @@ function CypherResultCytoscapeFooter({
             <option value="avsdf">Avsdf</option>
             <option value="spread">Spread</option>
           </select>
+          */}
         </div>
       );
     }
@@ -135,26 +142,11 @@ function CypherResultCytoscapeFooter({
             {' '}
             edges
           </div>
-          Layout :&nbsp;
-          <select
-            id="selectLayout"
-            className="col-2 custom-select custom-select-sm layout-select"
-            defaultValue={cytoscapeLayout}
-            onChange={(e) => [setCytoscapeLayout(e.target.value)]}
-          >
-            <option value="random">Random</option>
-            <option value="grid">Grid</option>
-            <option value="breadthFirst">Breadth-First</option>
-            <option value="concentric">Concentric</option>
-            <option value="cola">Cola</option>
-            <option value="cose">Cose</option>
-            <option value="coseBilkent">Cose-Bilkent</option>
-            <option value="dagre">Dagre</option>
-            <option value="klay">Klay</option>
-            <option value="euler">Euler</option>
-            <option value="avsdf">Avsdf</option>
-            <option value="spread">Spread</option>
-          </select>
+
+          <CytoScapeLayoutSelect
+            cytoscapeLayoutName={cytoscapeLayout}
+            setCytoscapeLayoutByName={setCytoscapeLayout}
+          />
         </div>
       );
     }
@@ -304,54 +296,42 @@ function CypherResultCytoscapeFooter({
               icon={footerExpanded ? faAngleUp : faAngleDown}
             />
           </button>
-          Layout :&nbsp;
-          <select
-            id="selectLayout"
-            className="col-2 custom-select custom-select-sm layout-select"
-            defaultValue={cytoscapeLayout}
-            onChange={(e) => [setCytoscapeLayout(e.target.value)]}
-          >
-            <option value="random">Random</option>
-            <option value="grid">Grid</option>
-            <option value="breadthFirst">Breadth-First</option>
-            <option value="concentric">Concentric</option>
-            <option value="cola">Cola</option>
-            <option value="cose">Cose</option>
-            <option value="coseBilkent">Cose-Bilkent</option>
-            <option value="dagre">Dagre</option>
-            <option value="klay">Klay</option>
-            <option value="euler">Euler</option>
-            <option value="avsdf">Avsdf</option>
-            <option value="spread">Spread</option>
-          </select>
+          <CytoScapeLayoutSelect
+            cytoscapeLayoutName={cytoscapeLayout}
+            setCytoscapeLayoutByName={setCytoscapeLayout}
+          />
         </div>
       );
     }
     return (
-      <div className="d-flex pl-3">
-        <div className="mr-auto label pl-3" />
-        <div className="px-1">Layout : </div>
-        <select
-          id="selectLayout"
-          className="col-2 custom-select custom-select-sm layout-select"
-          defaultValue={cytoscapeLayout}
-          onChange={(e) => [setCytoscapeLayout(e.target.value)]}
-        >
-          <option value="random">Random</option>
-          <option value="grid">Grid</option>
-          <option value="breadthFirst">Breadth-First</option>
-          <option value="concentric">Concentric</option>
-          <option value="cola">Cola</option>
-          <option value="cose">Cose</option>
-          <option value="coseBilkent">Cose-Bilkent</option>
-          <option value="dagre">Dagre</option>
-          <option value="klay">Klay</option>
-          <option value="euler">Euler</option>
-          <option value="avsdf">Avsdf</option>
-          <option value="spread">Spread</option>
-        </select>
-      </div>
+      <CytoScapeLayoutSelect
+        cytoscapeLayoutName={cytoscapeLayout}
+        setCytoscapeLayoutByName={setCytoscapeLayout}
+      />
     );
+    // <div className="d-flex pl-3">
+    //   <div className="mr-auto label pl-3" />
+    //   <div className="px-1">Layout : </div>
+    //   <select
+    //     id="selectLayout"
+    //     className="col-2 custom-select custom-select-sm layout-select"
+    //     defaultValue={cytoscapeLayout}
+    //     onChange={(e) => [setCytoscapeLayout(e.target.value)]}
+    //   >
+    //     <option value="random">Random</option>
+    //     <option value="grid">Grid</option>
+    //     <option value="breadthFirst">Breadth-First</option>
+    //     <option value="concentric">Concentric</option>
+    //     <option value="cola">Cola</option>
+    //     <option value="cose">Cose</option>
+    //     <option value="coseBilkent">Cose-Bilkent</option>
+    //     <option value="dagre">Dagre</option>
+    //     <option value="klay">Klay</option>
+    //     <option value="euler">Euler</option>
+    //     <option value="avsdf">Avsdf</option>
+    //     <option value="spread">Spread</option>
+    //   </select>
+    // </div>
   };
 
   return (

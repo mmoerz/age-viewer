@@ -22,6 +22,7 @@ export const initLocation = {};
 
 const coseBilkentLayout = {
   name: 'cose-bilkent',
+  label: 'Cose-Bilkent',
   idealEdgeLength: 100,
   refresh: 300,
   nodeDimensionsIncludeLabels: true,
@@ -38,6 +39,7 @@ const coseBilkentLayout = {
 
 const colaLayout = {
   name: 'cola',
+  label: 'Cola',
   animate: true,
   fit: false,
   avoidOverlap: true,
@@ -50,6 +52,7 @@ const colaLayout = {
 
 const concentricLayout = {
   name: 'concentric',
+  label: 'Concentric',
   fit: false,
   height: 100,
   width: 100,
@@ -62,6 +65,7 @@ const concentricLayout = {
 
 const randomLayout = {
   name: 'random',
+  label: 'Random',
   fit: true, // whether to fit to viewport
   padding: 30, // fit padding
   boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
@@ -80,6 +84,7 @@ const randomLayout = {
 
 const gridLayout = {
   name: 'grid',
+  label: 'Grid',
   fit: true, // whether to fit the viewport to the graph
   padding: 30, // padding used on fit
   boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
@@ -107,6 +112,7 @@ const gridLayout = {
 
 const breadthFirstLayout = {
   name: 'breadthfirst',
+  label: 'Breadth-First',
   fit: true, // whether to fit the viewport to the graph
   directed: false, // whether the tree is directed downwards (or edges can point in any direction if false)
   padding: 30, // padding on fit
@@ -133,6 +139,7 @@ const breadthFirstLayout = {
 
 const coseLayout = {
   name: 'cose',
+  label: 'Cose',
   // Called on `layoutready`
   ready() {},
 
@@ -218,6 +225,7 @@ const coseLayout = {
 
 const dagreLayout = {
   name: 'dagre',
+  label: 'Dagre',
   // dagre algo options, uses default value on undefined
   nodeSep: undefined, // the separation between adjacent nodes in the same rank
   edgeSep: undefined, // the separation between adjacent edges in the same rank
@@ -248,6 +256,7 @@ const dagreLayout = {
 
 const klayLayout = {
   name: 'klay',
+  label: 'Klay',
   nodeDimensionsIncludeLabels: false, // Boolean which changes whether label dimensions are included when calculating node dimensions
   fit: true, // Whether to fit
   padding: 20, // Padding on fit
@@ -311,6 +320,7 @@ const klayLayout = {
 
 const eulerLayout = {
   name: 'euler',
+  label: 'Euler',
 
   // The ideal length of a spring
   // - This acts as a hint for the edge length
@@ -409,6 +419,7 @@ const eulerLayout = {
 
 const avsdfLayout = {
   name: 'avsdf',
+  label: 'Avsdf',
   // Called on `layoutready`
   ready() {
   },
@@ -436,6 +447,7 @@ const avsdfLayout = {
 
 const spreadLayout = {
   name: 'spread',
+  label: 'Spread',
   animate: true, // Whether to show the layout as it's running
   ready: undefined, // Callback on layoutready
   stop(event) {

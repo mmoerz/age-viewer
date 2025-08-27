@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/devcontainers/javascript-node:latest
+
+VOLUME /src
+COPY setup.sh /src/setup.sh
+RUN chmod +x /src/setup.sh && /src/setup.sh
+
+CMD ["sleep", "infinity"]
+
+EXPOSE 3000
+EXPOSE 3001

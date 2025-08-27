@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  postgresql-age:
+    image: "docker.io/apache/age:latest"
+    #user: "${UID}:${GID}"
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: noPWD1224.
+    ports:
+       - "5432:5432"
+
+  # apache-age-viewer-backend:
+  #   "image": "mcr.microsoft.com/devcontainers/javascript-node:latest"
+  #   volumes:
+  #     - ../:/src:z
+  #   environment:
+  #     POSTGRES_HOST: postgresql-age
+  #     POSTGRES_PORT: 5432
+  #     POSTGRES_DB: postgres
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: noPWD1224.
+  #   command: sleep infinity
+
+  apache-age-viewer:
+    image: "mcr.microsoft.com/devcontainers/javascript-node:latest"
+    user: "${UID}:${GID}"
+    volumes:
+      - age_data:/src
+    environment:
+      POSTGRES_HOST: postgresql-age
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: noPWD1224.
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    command: sleep infinity
+
+volumes:
+  psql_data:
+    driver: local
+  age_data:
