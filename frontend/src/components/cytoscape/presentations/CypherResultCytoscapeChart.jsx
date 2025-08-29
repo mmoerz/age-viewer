@@ -87,7 +87,7 @@ function CypherResultCytoscapeCharts({
   const dispatch = useDispatch();
   const [initialized, setInitialized] = useState(false);
 
-  console.log('onElementsMouseover:', onElementsMouseover);
+  // console.log('onElementsMouseover:', onElementsMouseover);
 
   // --- setup Cytoscape instance ---
   useEffect(() => {
@@ -148,11 +148,13 @@ function CypherResultCytoscapeCharts({
           if (!textColor || textColor === 'rgba(0,0,0,0)') {
             textColor = ele.style('text-outline-color') || 'white';
           }
+          const fontSize = ele.style('font-size') || '12px';
           return `
             <div style="padding:2px 6px;
                         background:${bg};
                         border:2px solid ${border};
                         border-radius:6px;
+                        font-size:${fontSize};
                         color:${textColor};">
               ${data.properties?.[data.caption] || data.label || data.id}
             </div>`;

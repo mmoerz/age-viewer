@@ -32,6 +32,8 @@ class DatabaseService {
         let gr = this._graphRepository;
         await gr.initGraphNames();
         const { graphs } = gr.getConnectionInfo();
+        // update table statistics, because they are used to 
+        // display the number of vertices/edges in the UI
         await DatabaseService.analyzeGraph(gr);
         if (graphName) {
             if (graphs.includes(graphName.currentGraph)) {

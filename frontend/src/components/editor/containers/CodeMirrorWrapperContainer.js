@@ -20,8 +20,8 @@
 import { connect } from 'react-redux';
 import CodeMirrorWrapper from '../presentations/CodeMirrorWrapper';
 
-const mapStateToProps = (state) => {
-  console.log('Redux commandHistory:', state.editor.commandHistory);
+/* console.log('Redux commandHistory:', state.editor.commandHistory); */
+function mapStateToProps(state) {
   return {
     commandHistory: state.editor.commandHistory
       .slice(
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
       .map((cmd) => (typeof cmd === 'string' ? cmd : cmd.text || '')), // ensure strings
     commandFavorites: state.editor.commandFavorites.slice(0),
   };
-};
+}
 
 const mapDispatchToProps = { };
 
